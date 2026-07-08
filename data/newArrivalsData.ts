@@ -1,0 +1,133 @@
+export interface NewArrivalProduct {
+  id: string;
+  name: string;
+  price: string;
+  primaryImage: string;
+  hoverImage: string;
+  badge: 'New' | 'Limited' | null;
+  videoSnippetUrl?: string;
+  category: string;
+}
+
+export const newArrivalProducts: NewArrivalProduct[] = [
+  {
+    id: 'na-001',
+    name: 'Midnight Round',
+    price: 'PKR 38,000',
+    primaryImage: '/images/20250201_233523.jpg',
+    hoverImage: '/images/20250201_234223.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_233523.jpg',
+    category: 'Round',
+  },
+  {
+    id: 'na-002',
+    name: 'Solstice Frame',
+    price: 'PKR 29,000',
+    primaryImage: '/images/20250201_234223.jpg',
+    hoverImage: '/images/20250201_234249.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_234223.jpg',
+    category: 'Square',
+  },
+  {
+    id: 'na-003',
+    name: 'Halo Blue-Light',
+    price: 'PKR 28,000',
+    primaryImage: '/images/20250201_234547.jpg',
+    hoverImage: '/images/20250201_233639.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_234547.jpg',
+    category: 'Blue-Light',
+  },
+  {
+    id: 'na-004',
+    name: 'Eclipse Cat-Eye',
+    price: 'PKR 45,000',
+    primaryImage: '/images/20250201_233639.jpg',
+    hoverImage: '/images/20250202_003807.jpg',
+    badge: 'Limited',
+    videoSnippetUrl: '/images/20250201_233639.jpg',
+    category: 'Cat-Eye',
+  },
+  {
+    id: 'na-005',
+    name: 'Vintage Browline',
+    price: 'PKR 33,000',
+    primaryImage: '/images/20250202_003807.jpg',
+    hoverImage: '/images/20250202_003823.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250202_003807.jpg',
+    category: 'Browline',
+  },
+  {
+    id: 'na-006',
+    name: 'Crystal Clear',
+    price: 'PKR 31,000',
+    primaryImage: '/images/20250202_003823.jpg',
+    hoverImage: '/images/20250201_233723.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250202_003823.jpg',
+    category: 'Clear',
+  },
+  {
+    id: 'na-007',
+    name: 'Tortoise Classic',
+    price: 'PKR 36,000',
+    primaryImage: '/images/20250201_233723.jpg',
+    hoverImage: '/images/20250201_233730.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_233723.jpg',
+    category: 'Tortoise',
+  },
+  {
+    id: 'na-008',
+    name: 'Gold Rim Aviator',
+    price: 'PKR 55,000',
+    primaryImage: '/images/20250201_233730.jpg',
+    hoverImage: '/images/20250201_233801.jpg',
+    badge: 'Limited',
+    videoSnippetUrl: '/images/20250201_233730.jpg',
+    category: 'Aviator',
+  },
+  {
+    id: 'na-009',
+    name: 'Oversized Square',
+    price: 'PKR 39,000',
+    primaryImage: '/images/20250201_233801.jpg',
+    hoverImage: '/images/20250201_233904.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_233801.jpg',
+    category: 'Square',
+  },
+  {
+    id: 'na-010',
+    name: 'Minimalist Round',
+    price: 'PKR 27,000',
+    primaryImage: '/images/20250201_233904.jpg',
+    hoverImage: '/images/20250201_234211.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_233904.jpg',
+    category: 'Round',
+  },
+  {
+    id: 'na-011',
+    name: 'Sport Polarized',
+    price: 'PKR 48,000',
+    primaryImage: '/images/20250201_234211.jpg',
+    hoverImage: '/images/20250201_234607.jpg',
+    badge: 'New',
+    videoSnippetUrl: '/images/20250201_234211.jpg',
+    category: 'Sports',
+  },
+  {
+    id: 'na-012',
+    name: 'Designer Shield',
+    price: 'PKR 52,000',
+    primaryImage: '/images/20250201_234607.jpg',
+    hoverImage: '/images/20250201_234817.jpg',
+    badge: 'Limited',
+    videoSnippetUrl: '/images/20250201_234607.jpg',
+    category: 'Shield',
+  },
+];

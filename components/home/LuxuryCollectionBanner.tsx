@@ -13,59 +13,72 @@ export default function LuxuryCollectionBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
-  
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
-    gsap.fromTo('.luxury-content',
-      { opacity: 0, y: 50 },
+
+    gsap.fromTo(
+      '.luxury-content',
+      { opacity: 0, y: 42 },
       {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 1.1,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 70%',
-        }
+          start: 'top 72%',
+        },
       }
     );
   }, []);
 
   return (
-    <section ref={containerRef} className="relative h-[90vh] overflow-hidden bg-black flex items-center">
-      {/* Parallax Background */}
+    <section ref={containerRef} className="relative min-h-[90vh] overflow-hidden bg-black">
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image
           src={brandAssets.collections.luxury}
           alt="The Luxury Collection"
           fill
+          priority
+          sizes="100vw"
           className="object-cover opacity-80"
         />
-        {/* Luxury Gold/Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
       </motion.div>
 
-      <div className="container mx-auto px-8 relative z-10">
-        <div className="max-w-xl luxury-content">
-          <h4 className="text-primary luxury-tracking uppercase text-xs font-bold mb-6 flex items-center gap-4">
-            <span className="w-12 h-[1px] bg-primary"></span>
+      <div className="relative z-10 mx-auto flex min-h-[90vh] w-full max-w-7xl items-center px-6 py-24 sm:px-10 lg:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="luxury-content max-w-2xl rounded-[2px] border border-white/10 bg-black/20 p-8 backdrop-blur-sm sm:p-12 lg:p-14"
+        >
+          <p className="mb-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#C5A059]">
+            <span className="h-[1px] w-12 bg-[#C5A059]" />
             Haute Couture
-          </h4>
-          <h2 className="text-5xl md:text-7xl font-light text-white mb-6">THE <span className="font-medium italic">LUXURY</span> <br/>EDIT</h2>
-          <p className="text-white/70 font-light leading-relaxed mb-10 text-lg">
-            Impeccable craftsmanship meets avant-garde design. Featuring 24k gold-plated accents, rare Italian acetate, and zero-distortion polarized lenses.
           </p>
-          <Link href="/shop?category=luxury" className="group inline-flex items-center justify-center gap-4 bg-primary text-black px-10 py-5 uppercase luxury-tracking text-xs font-bold hover:bg-white luxury-transition shadow-2xl">
+          <h2 className="mb-6 text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
+            THE <span className="font-medium italic text-[#F5F5F7]">LUXURY</span>
+            <br />
+            EDIT
+          </h2>
+          <p className="mb-10 max-w-xl text-base leading-8 text-[#8E8E93] sm:text-lg">
+            Impeccable craftsmanship meets avant-garde design. Discover sculpted silhouettes, rare Italian acetate, and precision lenses crafted for the most discerning clientele.
+          </p>
+          <Link
+            href="/shop?category=luxury"
+            className="group inline-flex items-center gap-3 border border-[#C5A059] bg-transparent px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#F5F5F7] transition-all duration-300 hover:bg-[#C5A059] hover:text-black"
+          >
             Explore Luxury
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

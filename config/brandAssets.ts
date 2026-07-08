@@ -50,8 +50,13 @@ export const brandAssets = {
   story: {
     image: "/images/20250202_001008.jpg",
   },
+  promos: {
+    contentCreators: "/images/20250202_003807.jpg",
+    graphicDesigners: "/images/20250202_003823.jpg",
+  },
   video: {
     src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    poster: "/images/20250201_233639.jpg",
   },
   reviews: [
     { avatar: "/images/20250202_001018.jpg" },

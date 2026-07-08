@@ -1,5 +1,18 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { Playfair_Display, Inter } from 'next/font/google';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export default function StorefrontLayout({
   children,
@@ -7,7 +20,7 @@ export default function StorefrontLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen`}>
       <Navbar />
       <main className="flex-grow">
         {children}
