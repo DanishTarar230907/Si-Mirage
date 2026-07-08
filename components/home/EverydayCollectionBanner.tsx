@@ -1,0 +1,75 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight } from 'lucide-react';
+import { brandAssets } from '@/config/brandAssets';
+
+export default function EverydayCollectionBanner() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    gsap.fromTo('.everyday-content',
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 70%',
+        }
+      }
+    );
+  }, []);
+
+  return (
+    <section ref={containerRef} className="relative h-[90vh] overflow-hidden bg-white flex items-center justify-end">
+      {/* Parallax Background */}
+      <motion.div style={{ y }} className="absolute inset-0 z-0">
+        <Image
+          src={brandAssets.collections.everyday}
+          alt="The Everyday Collection"
+          fill
+          className="object-cover opacity-90"
+        />
+        {/* Everyday Light Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-l from-white/90 via-white/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent" />
+      </motion.div>
+
+      <div className="container mx-auto px-8 relative z-10 flex justify-end">
+        <div className="max-w-xl everyday-content text-right">
+          <h4 className="text-foreground/50 luxury-tracking uppercase text-xs font-bold mb-6 flex items-center justify-end gap-4">
+            Daily Essentials
+            <span className="w-12 h-[1px] bg-foreground/30"></span>
+          </h4>
+          <h2 className="text-5xl md:text-7xl font-light text-foreground mb-6">THE <span className="font-medium">EVERYDAY</span> <br/>EDIT</h2>
+          <p className="text-foreground/70 font-light leading-relaxed mb-10 text-lg">
+            Lightweight, versatile, and effortlessly stylish. Engineered for professionals and students seeking all-day comfort without the premium price tag.
+          </p>
+          <div className="flex flex-col items-end gap-2 mb-8">
+            <span className="text-sm font-bold uppercase luxury-tracking text-primary">Starting at PKR 2,999</span>
+          </div>
+          <Link href="/shop?category=everyday" className="group inline-flex items-center justify-center gap-4 bg-foreground text-background px-10 py-5 uppercase luxury-tracking text-xs font-bold hover:bg-primary hover:text-white luxury-transition shadow-lg">
+            Shop Everyday
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
