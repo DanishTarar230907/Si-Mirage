@@ -6,11 +6,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { brandAssets } from '@/config/brandAssets';
+import { useCmsData } from '@/components/admin/AdminContext';
 
 export default function MasonryGallery() {
+  const { cmsData } = useCmsData();
+  const instagramImages = cmsData.gallery || [];
+
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -43,18 +47,18 @@ export default function MasonryGallery() {
   ];
 
   return (
-    <section className="py-24 bg-background overflow-hidden relative">
+    <section className="py-24 bg-[#FAFAFA] overflow-hidden relative">
       <div className="container mx-auto px-8">
         
         <div className="text-center mb-16">
-          <h4 className="text-primary luxury-tracking uppercase text-xs font-bold mb-4 flex items-center justify-center gap-2">
-            <Camera className="w-4 h-4" /> @simirage.official
+          <h4 className="text-black tracking-[1.5px] uppercase text-[10px] xl:text-xs font-bold mb-4 flex items-center justify-center gap-2">
+            <Camera className="w-4 h-4 text-black stroke-[1.5]" /> @simirage.official
           </h4>
-          <h2 className="text-3xl md:text-5xl font-light">JOIN THE <span className="font-medium">MIRAGE</span></h2>
+          <h2 className="text-3xl md:text-5xl font-light text-black">JOIN THE <span className="font-medium">MIRAGE</span></h2>
         </div>
 
         <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 auto-rows-fr">
-          {brandAssets.instagram.map((src, idx) => (
+          {instagramImages.map((src, idx) => (
             <div 
               key={idx} 
               className={`gallery-item relative overflow-hidden group cursor-pointer ${gridClasses[idx] || "col-span-1 row-span-1 aspect-square"}`}
@@ -67,11 +71,12 @@ export default function MasonryGallery() {
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover group-hover:scale-110 transition-transform duration-700" 
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
           ))}
+
         </div>
 
       </div>

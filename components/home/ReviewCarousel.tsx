@@ -6,38 +6,20 @@ import { Star, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { brandAssets } from '@/config/brandAssets';
-
-const reviews = [
-  {
-    id: 1,
-    name: "Sarah Jenkins",
-    location: "New York, USA",
-    text: "The build quality is phenomenal. I've owned glasses from Prada and Ray-Ban, and these feel just as premium, if not better. The polarization is incredibly clear.",
-    rating: 5,
-    avatar: brandAssets.reviews[0].avatar
-  },
-  {
-    id: 2,
-    name: "Michael Torres",
-    location: "London, UK",
-    text: "I bought the Aviator series for driving and they are perfect. Lightweight, comfortable on the bridge, and they look incredibly cinematic in the sunlight.",
-    rating: 5,
-    avatar: brandAssets.reviews[1].avatar
-  },
-  {
-    id: 3,
-    name: "Aisha Malik",
-    location: "Dubai, UAE",
-    text: "Stunning design. The gold accents on the Wayfarer model catch the light beautifully. I get compliments every time I wear them out. Will definitely purchase again.",
-    rating: 5,
-    avatar: brandAssets.reviews[2].avatar
-  }
-];
+import { useCmsData } from '@/components/admin/AdminContext';
 
 export default function ReviewCarousel() {
+  const { cmsData } = useCmsData();
+  const reviews = cmsData.testimonials || [];
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Handle out of bounds
+  useEffect(() => {
+    if (currentIndex >= reviews.length) {
+      setCurrentIndex(0);
+    }
+  }, [reviews.length, currentIndex]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -60,7 +42,11 @@ export default function ReviewCarousel() {
   const next = () => setCurrentIndex((prev) => (prev + 1) % reviews.length);
   const prev = () => setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
 
+  if (reviews.length === 0) return null;
+
   return (
+
+
     <section ref={containerRef} className="py-24 md:py-32 bg-surface overflow-hidden">
       <div className="container mx-auto px-8 max-w-4xl text-center">
         
@@ -86,7 +72,7 @@ export default function ReviewCarousel() {
               </div>
               
               <p className="text-xl md:text-2xl font-light leading-relaxed mb-8 text-foreground/80 italic">
-                "{reviews[currentIndex].text}"
+                &quot;{reviews[currentIndex].review}&quot;
               </p>
               
               <div className="flex items-center gap-4">

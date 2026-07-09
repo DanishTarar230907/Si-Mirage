@@ -5,22 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { brandAssets } from '@/config/brandAssets';
-
-const categories = [
-  { name: 'Luxury', image: brandAssets.categories.luxury, count: 24 },
-  { name: 'Everyday', image: brandAssets.categories.everyday, count: 42 },
-  { name: 'Aviator', image: brandAssets.categories.aviator, count: 18 },
-  { name: 'Wayfarer', image: brandAssets.categories.wayfarer, count: 35 },
-  { name: 'Round', image: brandAssets.categories.round, count: 12 },
-  { name: 'Square', image: brandAssets.categories.square, count: 28 },
-  { name: 'Sports', image: brandAssets.categories.sports, count: 15 },
-  { name: 'Blue Light', image: brandAssets.categories.bluelight, count: 22 },
-  { name: 'Kids', image: brandAssets.categories.kids, count: 10 },
-  { name: 'Accessories', image: brandAssets.categories.accessories, count: 14 },
-];
+import { useCmsData } from '@/components/admin/AdminContext';
 
 export default function CategoryCircleGrid() {
+  const { cmsData } = useCmsData();
+  const categories = cmsData.categories;
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

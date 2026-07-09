@@ -6,10 +6,12 @@ import CinematicHero from '@/components/best-sellers/CinematicHero';
 import StickyFilterNav from '@/components/best-sellers/StickyFilterNav';
 import PremiumProductCard from '@/components/best-sellers/PremiumProductCard';
 import PromotionalInterstitial from '@/components/best-sellers/PromotionalInterstitial';
-import { shopProducts } from '@/data/shopData';
+import { useCmsData } from '@/components/admin/AdminContext';
 import { useSearchParams } from 'next/navigation';
 
 function ShopPageContent() {
+  const { cmsData } = useCmsData();
+  const shopProducts = cmsData.shopProducts || [];
   const [activeFilter, setActiveFilter] = useState('all');
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -24,11 +26,6 @@ function ShopPageContent() {
     }
   }, [selectedCategory, router]);
 
-  // Show loading or return null while redirecting
-  if (selectedCategory === 'best-sellers' || selectedCategory === 'new-arrivals') {
-    return null;
-  }
-
   const filteredProducts = useMemo(() => {
     if (activeFilter === 'all') return shopProducts;
     
@@ -39,7 +36,13 @@ function ShopPageContent() {
       if (activeFilter === 'restocked') return product.badge === 'Restocked';
       return product.category.toLowerCase() === activeFilter;
     });
-  }, [activeFilter]);
+  }, [activeFilter, shopProducts]);
+
+
+  // Show loading or return null while redirecting
+  if (selectedCategory === 'best-sellers' || selectedCategory === 'new-arrivals') {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[#F9F9F9]">
@@ -75,7 +78,15 @@ function ShopPageContent() {
             return (
               <PremiumProductCard
                 key={product.id}
-                product={product}
+                product={{
+                  id: String(product.id),
+                  name: product.name,
+                  category: product.category,
+                  price: typeof product.price === 'number' ? `PKR ${product.price.toLocaleString()}` : String(product.price),
+                  badge: product.badge || null,
+                  primaryImage: product.primaryImage || product.image || "/images/20250201_233239.jpg",
+                  hoverImage: product.hoverImage || product.image || "/images/20250201_234207.jpg"
+                }}
                 index={index}
               />
             );

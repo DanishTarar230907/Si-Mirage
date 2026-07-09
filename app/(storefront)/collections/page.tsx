@@ -102,7 +102,7 @@ export default function CollectionsPage() {
               transition={{ delay: index * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link href={collection.href} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F5F5]">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F5F5] border border-black/10 hover:border-[#C5A059]/50 transition-colors">
                   <Image
                     src={collection.image}
                     alt={collection.title}

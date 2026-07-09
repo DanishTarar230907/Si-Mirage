@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight, Bell, Settings, LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useCustomerAuth } from '@/components/auth/CustomerAuthProvider';
 import AnnouncementBar from './AnnouncementBar';
 
 type NavPanelItem = {
@@ -138,6 +139,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const pathname = usePathname();
+  const { user } = useCustomerAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -147,13 +149,23 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const leftLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Shop', href: '/shop' },
-    { name: 'Collections', href: '/collections' },
-    { name: 'New Arrivals', href: '/shop?category=new-arrivals' },
-    { name: 'Best Sellers', href: '/shop?category=best-sellers' },
-  ];
+  const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin');
+
+  const leftLinks = isAdminRoute
+    ? [
+        { name: 'Home', href: '/admin' },
+        { name: 'Shop', href: '/admin/shop' },
+        { name: 'Collections', href: '/admin/collections' },
+        { name: 'New Arrivals', href: '/admin/new-arrivals' },
+        { name: 'Best Sellers', href: '/admin/best-sellers' },
+      ]
+    : [
+        { name: 'Home', href: '/' },
+        { name: 'Shop', href: '/shop' },
+        { name: 'Collections', href: '/collections' },
+        { name: 'New Arrivals', href: '/new-arrivals' },
+        { name: 'Best Sellers', href: '/best-sellers' },
+      ];
 
   return (
     <div className="sticky top-0 z-[60] w-full flex flex-col shadow-sm">
@@ -185,58 +197,60 @@ export default function Navbar() {
                       href={link.href}
                       onClick={() => setActivePanel(null)}
                       className={`group relative py-2 text-[10px] font-medium uppercase tracking-[0.15em] transition-colors xl:text-xs ${
-                        pathname === link.href ? 'text-foreground' : 'text-foreground/80 hover:text-primary'
+                        pathname === link.href || (isAdminRoute && pathname === '/admin') ? 'text-foreground' : 'text-foreground/80 hover:text-primary'
                       }`}
                     >
                       {link.name}
                       <span className={`absolute bottom-0 left-0 h-[1px] w-full origin-left bg-foreground transition-transform duration-300 ${
-                        pathname === link.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                        pathname === link.href || (isAdminRoute && pathname === '/admin') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`} />
                     </Link>
 
-                    <AnimatePresence>
-                      {panel && isOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 8 }}
-                          transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className="absolute left-0 top-full mt-3 w-[430px] rounded-[2px] border border-black/10 bg-white p-4 shadow-[0_20px_60px_rgba(0,0,0,0.16)]"
-                        >
-                          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#C5A059]">
-                            {link.name}
-                          </p>
-                          <p className="mb-4 text-sm leading-6 text-foreground/70">{panel.intro}</p>
-                          <div className="grid gap-3">
-                            {panel.items.map((item) => (
-                              <Link
-                                key={item.title}
-                                href={item.href}
-                                className="group flex items-center gap-3 rounded-sm border border-black/5 bg-[#FAFAFA] p-3 transition-colors hover:border-[#C5A059]"
-                              >
-                                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-sm">
-                                  <Image src={item.image} alt={item.title} fill className="object-cover" />
-                                </div>
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-foreground group-hover:text-primary">
-                                    {item.title}
-                                  </p>
-                                  <p className="mt-1 text-sm text-foreground/60">{item.description}</p>
-                                </div>
-                                <ArrowRight className="ml-auto h-4 w-4 text-[#C5A059]" />
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {!isAdminRoute && (
+                      <AnimatePresence>
+                        {panel && isOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                            className="absolute left-0 top-full mt-3 w-[430px] rounded-[2px] border border-black/10 bg-white p-4 shadow-[0_20px_60px_rgba(0,0,0,0.16)]"
+                          >
+                            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#C5A059]">
+                              {link.name}
+                            </p>
+                            <p className="mb-4 text-sm leading-6 text-foreground/70">{panel.intro}</p>
+                            <div className="grid gap-3">
+                              {panel.items.map((item) => (
+                                <Link
+                                  key={item.title}
+                                  href={item.href}
+                                  className="group flex items-center gap-3 rounded-sm border border-black/5 bg-[#FAFAFA] p-3 transition-colors hover:border-[#C5A059]"
+                                >
+                                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-sm">
+                                    <Image src={item.image} alt={item.title} fill className="object-cover" />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-foreground group-hover:text-primary">
+                                      {item.title}
+                                    </p>
+                                    <p className="mt-1 text-sm text-foreground/60">{item.description}</p>
+                                  </div>
+                                  <ArrowRight className="ml-auto h-4 w-4 text-[#C5A059]" />
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
                   </div>
                 );
               })}
             </nav>
           </div>
 
-          <div className="z-10 flex justify-center">
+          <div className="z-10 flex items-center justify-center">
             <Link href="/" className="flex items-center transition-opacity duration-300 hover:opacity-80">
               <Image
                 src="/logo.png"
@@ -247,19 +261,24 @@ export default function Navbar() {
                 priority
               />
             </Link>
+            {isAdminRoute && (
+              <span className="ml-3 rounded-full border border-[#C5A059]/20 bg-[#C5A059]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8a7b54]">
+                Admin
+              </span>
+            )}
           </div>
 
           <div className="flex items-center justify-end gap-5 xl:gap-8">
             <button className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
               <Search className="h-5 w-5 stroke-[1.5]" />
             </button>
-            <Link href="/wishlist" className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
+            <Link href={isAdminRoute ? "/admin/wishlist" : "/wishlist"} className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
               <Heart className="h-5 w-5 stroke-[1.5]" />
             </Link>
-            <Link href="/account" className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
+            <Link href={isAdminRoute ? "/admin/orders" : (user ? "/account" : "/login")} className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
               <User className="h-5 w-5 stroke-[1.5]" />
             </Link>
-            <Link href="/cart" className="group relative flex items-center gap-2 text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary">
+            <Link href={isAdminRoute ? "/admin/orders" : "/cart"} className="group relative flex items-center gap-2 text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary">
               <ShoppingBag className="h-5 w-5 stroke-[1.5]" />
               <span className="mt-0.5 text-xs font-bold tracking-[0.1em]">(0)</span>
               <span className="absolute -bottom-1 left-0 h-[1px] w-full origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />

@@ -76,7 +76,7 @@ export default function ContentCreatorsSection() {
               <span className="font-medium">MODERN CREATORS</span>
             </h2>
             <p className="creator-text text-foreground/70 font-light leading-relaxed mb-10 text-lg">
-              Whether you're filming YouTube videos, creating Instagram content, or producing cinematic reels, Si Mirage helps you look your absolute best on camera with anti-glare technology and bold silhouettes.
+              Whether you&apos;re filming YouTube videos, creating Instagram content, or producing cinematic reels, Si Mirage helps you look your absolute best on camera with anti-glare technology and bold silhouettes.
             </p>
             
             <div className="creator-text grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">

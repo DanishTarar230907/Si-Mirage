@@ -1,6 +1,9 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Playfair_Display, Inter } from 'next/font/google';
+import CustomCursor from '@/components/animations/CustomCursor';
+import SmoothScroll from '@/components/animations/SmoothScroll';
+import CustomerAuthProvider from '@/components/auth/CustomerAuthProvider';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -20,12 +23,16 @@ export default function StorefrontLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen`}>
-      <Navbar />
-      <main className="flex-grow">
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <CustomerAuthProvider>
+      <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen`}>
+        <CustomCursor />
+        <SmoothScroll />
+        <Navbar />
+        <main className="flex-grow relative z-10">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    </CustomerAuthProvider>
   );
 }

@@ -4,30 +4,36 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { mockCreativeShowcase } from '@/config/cmsMockData';
+import { useCmsData } from '@/components/admin/AdminContext';
 import { ArrowUpRight } from 'lucide-react';
+import AdminEditable from '@/components/admin/AdminEditable';
 
 export default function CreativeShowcase() {
+  const { cmsData } = useCmsData();
+  const creativeShowcase = cmsData.creativeShowcase || [];
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
-    gsap.fromTo('.creative-item',
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
+    if (containerRef.current) {
+      gsap.fromTo('.creative-item',
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+          }
         }
-      }
-    );
-  }, []);
+      );
+    }
+  }, [creativeShowcase.length]);
 
   const getGridClasses = (size: string) => {
     switch(size) {
@@ -54,34 +60,45 @@ export default function CreativeShowcase() {
         </div>
 
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px]">
-          {mockCreativeShowcase.map((item) => (
+          {creativeShowcase.map((item, idx) => (
             <div 
-              key={item.id} 
+              key={item.id || idx} 
               className={`creative-item relative overflow-hidden group cursor-pointer bg-background ${getGridClasses(item.size)}`}
             >
-              <Image 
-                src={item.coverImage} 
-                alt={item.title} 
-                fill 
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-1000" 
-              />
+              <AdminEditable section="creativeShowcase" field="coverImage" index={idx} type="image" className="w-full h-full">
+                <Image 
+                  src={item.coverImage} 
+                  alt={item.title} 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-1000" 
+                />
+              </AdminEditable>
+
               {/* Elegant Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
               
-              <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-[10px] uppercase luxury-tracking font-bold mb-2 block text-white/70">
-                    {item.category}
-                  </span>
-                  <h3 className="text-xl md:text-2xl font-medium mb-1">{item.title}</h3>
-                  <p className="text-sm font-light text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
-                    {item.description}
-                  </p>
+              <div className="absolute inset-0 p-6 flex flex-col justify-end text-white pointer-events-none">
+                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 pointer-events-auto">
+                  <AdminEditable section="creativeShowcase" field="category" index={idx} type="text">
+                    <span className="text-[10px] uppercase luxury-tracking font-bold mb-2 block text-white/70">
+                      {item.category}
+                    </span>
+                  </AdminEditable>
+
+                  <AdminEditable section="creativeShowcase" field="title" index={idx} type="text">
+                    <h3 className="text-xl md:text-2xl font-medium mb-1">{item.title}</h3>
+                  </AdminEditable>
+
+                  <AdminEditable section="creativeShowcase" field="description" index={idx} type="textarea">
+                    <p className="text-sm font-light text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
+                      {item.description}
+                    </p>
+                  </AdminEditable>
                 </div>
               </div>
 
-              <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+              <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
                 <ArrowUpRight className="w-5 h-5 text-white" />
               </div>
             </div>

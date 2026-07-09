@@ -3,9 +3,12 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProductCard from '@/components/ui/ProductCard';
-import { mockProducts } from '@/config/cmsMockData';
+import { useCmsData } from '@/components/admin/AdminContext';
 
 export default function TrendingCarousel() {
+  const { cmsData } = useCmsData();
+  const products = cmsData.shopProducts || [];
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -47,11 +50,27 @@ export default function TrendingCarousel() {
           className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {mockProducts.map((product) => (
-            <div key={product.id} className="min-w-[280px] md:min-w-[340px] lg:min-w-[380px] snap-start">
-              <ProductCard {...product} />
-            </div>
-          ))}
+          {products.map((product) => {
+            const rawPrice = typeof product.price === 'number' 
+              ? product.price 
+              : Number(product.price.toString().replace(/[^0-9]/g, '')) || 35000;
+            const discountPrice = rawPrice * 0.9;
+            return (
+              <div key={product.id} className="min-w-[280px] md:min-w-[340px] lg:min-w-[380px] snap-start">
+                <ProductCard
+                  id={product.id}
+                  name={product.name}
+                  category={product.category}
+                  price={rawPrice}
+                  discountPrice={discountPrice}
+                  image={product.primaryImage || product.image || '/images/20250201_233511.jpg'}
+                  hoverImage={product.hoverImage || product.image || '/images/20250201_234207.jpg'}
+                  isNew={product.badge === 'New'}
+                />
+              </div>
+            );
+          })}
+
         </div>
 
       </div>

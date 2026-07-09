@@ -44,6 +44,7 @@ export default function Footer() {
             <Link href="/shop?category=luxury" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">The Luxury Edit</Link>
             <Link href="/shop?category=new-arrivals" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">New Arrivals</Link>
             <Link href="/about" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Our Story</Link>
+            <Link href="/admin" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Admin Dashboard</Link>
           </nav>
 
           {/* Column 2: Insider */}

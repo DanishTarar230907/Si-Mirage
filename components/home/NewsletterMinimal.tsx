@@ -1,18 +1,28 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
+import { useCmsData } from '@/components/admin/AdminContext';
+import AdminEditable from '@/components/admin/AdminEditable';
 
 export default function NewsletterMinimal() {
+  const { cmsData } = useCmsData();
+  const newsletter = cmsData.newsletter;
+
   return (
     <section className="py-24 md:py-32 bg-accent border-t border-b border-foreground/5">
       <div className="container mx-auto px-8 max-w-2xl text-center">
-        <h2 className="text-3xl md:text-5xl font-light mb-6 text-foreground">
-          THE <span className="font-medium">INSIDER</span>
-        </h2>
-        <p className="text-foreground/70 font-light mb-12 text-lg">
-          Subscribe to receive early access to new collections, exclusive editorial content, and special offers.
-        </p>
+        <AdminEditable section="newsletter" field="heading" type="text">
+          <h2 className="text-3xl md:text-5xl font-light mb-6 text-foreground uppercase tracking-wide">
+            {newsletter.heading}
+          </h2>
+        </AdminEditable>
         
+        <AdminEditable section="newsletter" field="description" type="textarea">
+          <p className="text-foreground/70 font-light mb-12 text-lg">
+            {newsletter.description}
+          </p>
+        </AdminEditable>
+
         <form className="relative max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
           <input 
             type="email" 
@@ -27,6 +37,7 @@ export default function NewsletterMinimal() {
             <ArrowRight className="w-5 h-5" />
           </button>
         </form>
+        
         <p className="text-[10px] uppercase luxury-tracking text-foreground/40 mt-6">
           By subscribing, you agree to our Terms of Service & Privacy Policy.
         </p>
