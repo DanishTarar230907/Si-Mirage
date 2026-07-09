@@ -39,25 +39,28 @@ export default function ProductCard({
       {/* Image Container with strict 4/5 aspect ratio */}
       <div className="relative w-full aspect-[4/5] bg-surface overflow-hidden mb-6">
         
-        {/* Primary Image */}
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          className={`object-cover object-center transition-opacity duration-700 ease-in-out ${isHovered && hoverImage ? 'opacity-0' : 'opacity-100'}`}
-        />
-        
-        {/* Secondary Hover Image */}
-        {hoverImage && (
+        {/* Clickable Image Area */}
+        <Link href={`/product/${id}`} className="absolute inset-0 z-0 block">
+          {/* Primary Image */}
           <Image
-            src={hoverImage}
-            alt={`${name} alternate view`}
+            src={image}
+            alt={name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className={`object-cover object-center transition-opacity duration-700 ease-in-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+            className={`object-cover object-center transition-opacity duration-700 ease-in-out ${isHovered && hoverImage ? 'opacity-0' : 'opacity-100'}`}
           />
-        )}
+          
+          {/* Secondary Hover Image */}
+          {hoverImage && (
+            <Image
+              src={hoverImage}
+              alt={`${name} alternate view`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              className={`object-cover object-center transition-opacity duration-700 ease-in-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+            />
+          )}
+        </Link>
 
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
