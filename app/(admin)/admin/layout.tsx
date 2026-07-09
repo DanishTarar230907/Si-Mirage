@@ -1,11 +1,12 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { Playfair_Display, Inter } from 'next/font/google';
-import CustomCursor from '@/components/animations/CustomCursor';
+
 import SmoothScroll from '@/components/animations/SmoothScroll';
 import { AdminProvider } from '@/components/admin/AdminContext';
 import AdminWorkspaceBar from '@/components/admin/AdminWorkspaceBar';
 import AdminSectionDrawer from '@/components/admin/AdminSectionDrawer';
+import NavigationControls from '@/components/layout/NavigationControls';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -31,8 +32,9 @@ export default function AdminLayout({
 }) {
   return (
     <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen bg-background`}>
-      <CustomCursor />
+
       <SmoothScroll />
+      <NavigationControls />
       <AdminWorkspaceBar />
       <Navbar />
       <main className="flex-grow relative z-10">
