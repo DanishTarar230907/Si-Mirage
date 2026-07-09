@@ -17,6 +17,7 @@ export default function AdminProductDetailPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(0);
+  const [activeTab, setActiveTab] = useState('description');
 
   // Find product dynamically from state
   const foundProduct = (cmsData.shopProducts || []).find(p => p.id === id);
@@ -252,6 +253,141 @@ export default function AdminProductDetailPage() {
               </div>
             </div>
 
+          </div>
+        </div>
+
+        {/* Tabs Section for Description & Reviews */}
+        <div className="mt-20 md:mt-32 relative">
+          <div className="flex justify-center gap-8 md:gap-16 border-b border-white/10 mb-12">
+            <button 
+              onClick={() => setActiveTab('description')}
+              className={`pb-4 text-sm tracking-widest uppercase transition-colors relative ${activeTab === 'description' ? 'text-[#C5A059] font-bold' : 'text-foreground/60 hover:text-foreground'}`}
+            >
+              Description
+              {activeTab === 'description' && (
+                <motion.div layoutId="tabIndicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C5A059]" />
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveTab('reviews')}
+              className={`pb-4 text-sm tracking-widest uppercase transition-colors relative ${activeTab === 'reviews' ? 'text-[#C5A059] font-bold' : 'text-foreground/60 hover:text-foreground'}`}
+            >
+              Reviews (24)
+              {activeTab === 'reviews' && (
+                <motion.div layoutId="tabIndicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C5A059]" />
+              )}
+            </button>
+          </div>
+
+          <div className="max-w-4xl mx-auto relative">
+            {isEditMode && foundProduct && activeTab === 'description' && (
+              <div className="absolute -top-12 right-0 z-30">
+                <button
+                  onClick={() => handleEditField('longDescription', 'Long Description Text:', product.longDescription || "Elevate your everyday aesthetic with the Si Mirage Model. Crafted from ultra-lightweight aerospace-grade materials, these frames offer unparalleled durability without compromising on comfort. The sleek, cinematic styling is designed to make a statement, whether you're navigating urban landscapes or escaping to coastal retreats.")}
+                  className="flex items-center gap-1 bg-black/90 text-[#C5A059] border border-[#C5A059]/40 px-3 py-1.5 text-[10px] uppercase tracking-widest font-bold hover:bg-[#C5A059] hover:text-black transition-all"
+                >
+                  <Edit className="w-3.5 h-3.5" /> Edit Tab Description
+                </button>
+              </div>
+            )}
+            
+            <AnimatePresence mode="wait">
+              {activeTab === 'description' ? (
+                <motion.div 
+                  key="desc"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-8 text-foreground/80 leading-relaxed font-light"
+                >
+                  <p>
+                    {product.longDescription || "Elevate your everyday aesthetic with the Si Mirage Model. Crafted from ultra-lightweight aerospace-grade materials, these frames offer unparalleled durability without compromising on comfort. The sleek, cinematic styling is designed to make a statement, whether you're navigating urban landscapes or escaping to coastal retreats."}
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-8 my-12">
+                    <div className="relative aspect-square bg-white/5 border border-white/10 flex items-center justify-center">
+                      <Image src="https://placehold.co/600x600/111111/C0A062?text=Detail+1+[Drive]" alt="Detail 1" fill className="object-cover opacity-80" />
+                    </div>
+                    <div className="relative aspect-square bg-white/5 border border-white/10 flex items-center justify-center">
+                      <Image src="https://placehold.co/600x600/111111/C0A062?text=Detail+2+[Drive]" alt="Detail 2" fill className="object-cover opacity-80" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl text-[#C5A059] font-normal">Premium Specifications</h3>
+                    {isEditMode && foundProduct && (
+                      <button
+                        onClick={() => handleEditField('specifications', 'Comma-separated Specifications:', product.specifications || "Polarized lenses with 100% UV protection,Anti-reflective and scratch-resistant coating,Hand-polished acetate frame,Custom-machined 5-barrel hinges,Includes premium leather case and microfiber cleaning cloth")}
+                        className="flex items-center gap-1 bg-transparent text-white/60 border border-white/20 px-2 py-1 text-[9px] uppercase tracking-widest hover:text-white hover:border-white/50 transition-all"
+                      >
+                        <Edit className="w-3 h-3" /> Edit Specs
+                      </button>
+                    )}
+                  </div>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {(product.specifications ? product.specifications.split(',') : [
+                      "Polarized lenses with 100% UV protection",
+                      "Anti-reflective and scratch-resistant coating",
+                      "Hand-polished acetate frame",
+                      "Custom-machined 5-barrel hinges",
+                      "Includes premium leather case and microfiber cleaning cloth"
+                    ]).map((spec: string, i: number) => (
+                      <li key={i}>{spec.trim()}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ) : (
+                <motion.div 
+                  key="reviews"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-12 relative"
+                >
+                  {isEditMode && foundProduct && (
+                    <div className="absolute -top-12 right-0 z-30">
+                      <button
+                        onClick={() => alert('Review editing would typically be managed in a separate Reviews Data module, not directly on the product document.')}
+                        className="flex items-center gap-1 bg-black/90 text-white/60 border border-white/20 px-3 py-1.5 text-[10px] uppercase tracking-widest font-bold hover:text-white transition-all"
+                      >
+                        <Edit className="w-3.5 h-3.5" /> Manage Reviews
+                      </button>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="text-6xl font-light text-[#C5A059]">4.8</div>
+                    <div>
+                      <div className="flex text-[#C5A059] mb-2">
+                        {[1, 2, 3, 4, 5].map((star) => <Star key={star} className={`w-5 h-5 ${star <= 4 ? 'fill-current' : 'fill-current opacity-30'}`} />)}
+                      </div>
+                      <p className="text-sm text-foreground/60">Based on 24 reviews</p>
+                    </div>
+                  </div>
+
+                  {/* Reviews List */}
+                  <div className="space-y-8">
+                    {[
+                      { name: 'Alex M.', date: 'October 12, 2026', rating: 5, text: 'Absolutely stunning. The build quality is unmatched and they look incredibly cinematic just as advertised. Worth every penny.' },
+                      { name: 'Sarah J.', date: 'September 28, 2026', rating: 5, text: 'The polarization is fantastic. I wear them driving and at the beach, and the clarity is perfect. Also very comfortable for all-day wear.' },
+                      { name: 'Michael T.', date: 'September 15, 2026', rating: 4, text: 'Great sunglasses, highly stylish. They are slightly heavier than my previous pair but you can tell they are made from premium materials.' }
+                    ].map((review, idx) => (
+                      <div key={idx} className="border-b border-white/10 pb-8 last:border-0">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <p className="font-bold mb-1">{review.name}</p>
+                            <div className="flex text-[#C5A059] gap-0.5">
+                              {[1, 2, 3, 4, 5].map((star) => <Star key={star} className={`w-3 h-3 ${star <= review.rating ? 'fill-current' : 'fill-current opacity-30'}`} />)}
+                            </div>
+                          </div>
+                          <span className="text-xs text-foreground/40">{review.date}</span>
+                        </div>
+                        <p className="text-foreground/80 font-light text-sm">{review.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </AdminSectionWrapper>
