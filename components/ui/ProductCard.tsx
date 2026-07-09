@@ -6,6 +6,7 @@ import { Heart, Search, ShoppingBag, Star } from 'lucide-react';
 import { useState } from 'react';
 import { formatPrice } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 interface ProductCardProps {
   id: string | number;
@@ -29,6 +30,9 @@ export default function ProductCard({
   isNew,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith('/admin');
+  const productUrl = isAdminRoute ? `/admin/product/${id}` : `/product/${id}`;
 
   return (
     <div 
@@ -40,7 +44,7 @@ export default function ProductCard({
       <div className="relative w-full aspect-[4/5] bg-surface overflow-hidden mb-6">
         
         {/* Clickable Image Area */}
-        <Link href={`/product/${id}`} className="absolute inset-0 z-0 block">
+        <Link href={productUrl} className="absolute inset-0 z-0 block">
           {/* Primary Image */}
           <Image
             src={image}
@@ -104,7 +108,7 @@ export default function ProductCard({
         </span>
         
         {/* Title (Bolder) */}
-        <Link href={`/product/${id}`} className="text-sm md:text-base font-bold tracking-wide text-foreground hover:text-primary transition-colors">
+        <Link href={productUrl} className="text-sm md:text-base font-bold tracking-wide text-foreground hover:text-primary transition-colors">
           {name}
         </Link>
         
