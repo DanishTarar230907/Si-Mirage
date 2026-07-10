@@ -2,16 +2,18 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Star, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, CheckCircle, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useCmsData } from '@/components/admin/AdminContext';
+import CountUp from '@/components/animations/CountUp';
 
 export default function ReviewCarousel() {
   const { cmsData } = useCmsData();
   const reviews = cmsData.testimonials || [];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Handle out of bounds
@@ -20,6 +22,15 @@ export default function ReviewCarousel() {
       setCurrentIndex(0);
     }
   }, [reviews.length, currentIndex]);
+
+  // Autoplay, paused on hover / focus
+  useEffect(() => {
+    if (reviews.length <= 1 || isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [reviews.length, isPaused]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -47,13 +58,22 @@ export default function ReviewCarousel() {
   return (
 
 
-    <section ref={containerRef} className="py-24 md:py-32 bg-surface overflow-hidden">
+    <section
+      ref={containerRef}
+      className="py-24 md:py-32 bg-surface overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={() => setIsPaused(false)}
+    >
       <div className="container mx-auto px-8 max-w-4xl text-center">
         
-        <div className="review-header mb-16">
+        <div className="review-header mb-12">
           <h4 className="text-primary luxury-tracking uppercase text-xs font-bold mb-4">Testimonials</h4>
           <h2 className="text-3xl md:text-5xl font-light text-foreground">THE <span className="font-medium">VERDICT</span></h2>
         </div>
+
+        <Quote className="mx-auto mb-6 h-10 w-10 text-primary/40" aria-hidden="true" />
 
         <div className="relative h-[300px] md:h-[250px] flex items-center justify-center">
           <AnimatePresence mode="wait">
@@ -116,6 +136,28 @@ export default function ReviewCarousel() {
           >
             <ChevronRight className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Trust stats */}
+        <div className="mt-20 grid grid-cols-2 gap-8 border-t border-foreground/10 pt-12 md:grid-cols-4">
+          {[
+            { to: 25000, suffix: '+', label: 'Happy Clients' },
+            { to: 4.9, decimals: 1, suffix: '/5', label: 'Average Rating' },
+            { to: 120, suffix: '+', label: 'Signature Frames' },
+            { to: 98, suffix: '%', label: 'Would Recommend' },
+          ].map((stat) => (
+            <div key={stat.label} className="flex flex-col items-center">
+              <CountUp
+                to={stat.to}
+                decimals={stat.decimals ?? 0}
+                suffix={stat.suffix}
+                className="text-3xl md:text-4xl font-light text-foreground"
+              />
+              <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/50">
+                {stat.label}
+              </span>
+            </div>
+          ))}
         </div>
 
       </div>

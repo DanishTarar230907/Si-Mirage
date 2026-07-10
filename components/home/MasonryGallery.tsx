@@ -79,6 +79,18 @@ export default function MasonryGallery() {
 
         </div>
 
+        <div className="mt-14 flex justify-center">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 border border-black/15 bg-white px-8 py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-black transition-all duration-300 hover:border-primary hover:bg-black hover:text-white"
+          >
+            <Camera className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+            Follow @simirage.official
+          </a>
+        </div>
+
       </div>
 
       {/* Modal */}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight, Bell, Settings, LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useCustomerAuth } from '@/components/auth/CustomerAuthProvider';
@@ -141,6 +141,13 @@ export default function Navbar() {
   const pathname = usePathname();
   const { user } = useCustomerAuth();
 
+  const { scrollYProgress } = useScroll();
+  const progressScaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -171,7 +178,7 @@ export default function Navbar() {
     <div className="sticky top-0 z-[60] w-full flex flex-col shadow-sm">
       <AnnouncementBar />
 
-      <header className={`border-b border-foreground/10 py-5 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur' : 'bg-[#FFFFFF]'}`}>
+      <header className={`relative border-b border-foreground/10 transition-all duration-500 ${isScrolled ? 'bg-white/90 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)] backdrop-blur-md' : 'bg-[#FFFFFF] py-5'}`}>
         <div className="container mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 xl:px-16">
           <div className="flex items-center justify-start">
             <button
@@ -343,6 +350,12 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Reading / scroll progress indicator */}
+        <motion.div
+          style={{ scaleX: progressScaleX }}
+          className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-gradient-to-r from-secondary via-primary to-primary-light"
+        />
       </header>
     </div>
   );

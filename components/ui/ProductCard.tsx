@@ -41,7 +41,7 @@ export default function ProductCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container with strict 4/5 aspect ratio */}
-      <div className="relative w-full aspect-[4/5] bg-surface overflow-hidden mb-6">
+      <div className="relative w-full aspect-[4/5] bg-surface overflow-hidden mb-6 rounded-[2px] shadow-sm transition-shadow duration-500 group-hover:shadow-[0_24px_60px_rgba(0,0,0,0.14)]">
         
         {/* Clickable Image Area */}
         <Link href={productUrl} className="absolute inset-0 z-0 block">
@@ -51,7 +51,7 @@ export default function ProductCard({
             alt={name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className={`object-cover object-center transition-opacity duration-700 ease-in-out ${isHovered && hoverImage ? 'opacity-0' : 'opacity-100'}`}
+            className={`object-cover object-center transition-all duration-700 ease-in-out ${isHovered && hoverImage ? 'opacity-0' : 'opacity-100'} ${isHovered && !hoverImage ? 'scale-105' : 'scale-100'}`}
           />
           
           {/* Secondary Hover Image */}

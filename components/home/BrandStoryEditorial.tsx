@@ -53,15 +53,18 @@ export default function BrandStoryEditorial() {
       <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
-          <div className="story-image relative aspect-[3/4] lg:aspect-auto lg:h-[800px] overflow-hidden bg-surface">
+          <div className="story-image group relative aspect-[3/4] lg:aspect-auto lg:h-[800px] overflow-hidden bg-surface">
             <AdminEditable section="brandStory" field="image" type="image" className="w-full h-full">
               <Image
                 src={story.image || '/images/20250201_233639.jpg'}
                 alt="Si Mirage Craftsmanship"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
               />
             </AdminEditable>
+            {/* Gold corner accents */}
+            <span className="pointer-events-none absolute left-6 top-6 h-10 w-10 border-l border-t border-primary/70" />
+            <span className="pointer-events-none absolute bottom-6 right-6 h-10 w-10 border-b border-r border-primary/70" />
           </div>
           
           <div className="lg:pl-10">

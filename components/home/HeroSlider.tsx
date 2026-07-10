@@ -15,6 +15,9 @@ export default function HeroSlider() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 800], [0, 200]);
+  // Fade + lift the hero copy as the user scrolls past the fold.
+  const contentOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const contentY = useTransform(scrollY, [0, 400], [0, -60]);
 
   // Handle out of bounds if slides length decreases
   useEffect(() => {
@@ -50,14 +53,21 @@ export default function HeroSlider() {
         >
           <motion.div style={{ y }} className="relative w-full h-[110%] -top-[5%]">
             <AdminEditable section="hero" field="image" index={currentSlide} type="image" className="w-full h-full">
-              <Image
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide].title}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-center"
-              />
+              <motion.div
+                initial={{ scale: 1.12 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 7, ease: 'linear' }}
+                className="relative h-full w-full"
+              >
+                <Image
+                  src={slides[currentSlide].image}
+                  alt={slides[currentSlide].title}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+              </motion.div>
             </AdminEditable>
             {/* Contrast Overlay */}
             <div 
@@ -69,7 +79,10 @@ export default function HeroSlider() {
       </AnimatePresence>
 
       {/* Hero Content */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 pointer-events-none mt-10">
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 pointer-events-none mt-10"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -111,7 +124,24 @@ export default function HeroSlider() {
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        style={{ opacity: contentOpacity }}
+        className="absolute bottom-7 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+      >
+        <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">
+          Scroll
+        </span>
+        <span className="relative flex h-10 w-6 justify-center rounded-full border border-white/40">
+          <motion.span
+            animate={{ y: [4, 16, 4], opacity: [1, 0.2, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="mt-1 h-2 w-[2px] rounded-full bg-white"
+          />
+        </span>
+      </motion.div>
 
       {/* Navigation Controls */}
       <div className="absolute bottom-8 inset-x-0 z-20 container mx-auto px-8 flex items-end justify-between pointer-events-none">
