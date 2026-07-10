@@ -7,7 +7,6 @@ import { AdminProvider } from '@/components/admin/AdminContext';
 import AdminWorkspaceBar from '@/components/admin/AdminWorkspaceBar';
 import AdminSectionDrawer from '@/components/admin/AdminSectionDrawer';
 import NavigationControls from '@/components/layout/NavigationControls';
-import CustomCursor from '@/components/animations/CustomCursor';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -33,7 +32,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen bg-background`}>
-      <CustomCursor />
+
       <SmoothScroll />
       <NavigationControls />
       <AdminWorkspaceBar />

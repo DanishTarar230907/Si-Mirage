@@ -5,7 +5,6 @@ import { Playfair_Display, Inter } from 'next/font/google';
 import SmoothScroll from '@/components/animations/SmoothScroll';
 import CustomerAuthProvider from '@/components/auth/CustomerAuthProvider';
 import NavigationControls from '@/components/layout/NavigationControls';
-import CustomCursor from '@/components/animations/CustomCursor';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -27,7 +26,7 @@ export default function StorefrontLayout({
   return (
     <CustomerAuthProvider>
       <div className={`${playfair.variable} ${inter.variable} flex flex-col min-h-screen`}>
-        <CustomCursor />
+
         <SmoothScroll />
         <NavigationControls />
         <Navbar />
