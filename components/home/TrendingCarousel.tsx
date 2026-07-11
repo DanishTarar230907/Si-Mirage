@@ -24,8 +24,8 @@ export default function TrendingCarousel() {
         
         <div className="flex items-end justify-between mb-16">
           <div>
-            <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-4">Trending Now</h4>
-            <h2 className="text-3xl md:text-5xl font-serif font-light text-black">SEASONAL <span className="font-medium">ESSENTIALS</span></h2>
+            <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-4">LATEST DROPS</h4>
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-black uppercase tracking-widest">NEW ARRIVALS</h2>
           </div>
           
           <div className="hidden md:flex gap-4">

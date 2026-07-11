@@ -95,18 +95,20 @@ export default function HeroSlider() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-4">
               <Link href="/shop">
                 <AdminEditable section="hero" field="cta1" index={currentSlide} type="text">
-                  <span className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-none uppercase tracking-[0.15em] text-[13px] font-bold hover:opacity-80 transition-opacity shadow-2xl min-w-[200px] cursor-pointer">
-                    {slides[currentSlide].cta1}
+                  <span className="inline-flex items-center justify-center bg-white text-black px-10 py-5 rounded-none uppercase font-sans tracking-[0.15em] text-[10px] font-bold hover:bg-white/80 transition-colors shadow-2xl min-w-[200px] cursor-pointer">
+                    {slides[currentSlide].cta1 || "EXPLORE COLLECTION"}
                   </span>
                 </AdminEditable>
               </Link>
-              <Link href="/collections">
-                <AdminEditable section="hero" field="cta2" index={currentSlide} type="text">
-                  <span className="inline-flex items-center justify-center bg-transparent border border-white text-white px-8 py-4 rounded-none uppercase tracking-[0.15em] text-[13px] font-bold hover:bg-white hover:text-black transition-all duration-300 min-w-[200px] cursor-pointer">
-                    {slides[currentSlide].cta2}
-                  </span>
-                </AdminEditable>
-              </Link>
+              {slides[currentSlide].cta2 && slides[currentSlide].cta2 !== "Atelier Vision" && (
+                <Link href="/collections">
+                  <AdminEditable section="hero" field="cta2" index={currentSlide} type="text">
+                    <span className="inline-flex items-center justify-center bg-transparent border border-white text-white px-10 py-5 rounded-none uppercase font-sans tracking-[0.15em] text-[10px] font-bold hover:bg-white hover:text-black transition-all duration-300 min-w-[200px] cursor-pointer">
+                      {slides[currentSlide].cta2}
+                    </span>
+                  </AdminEditable>
+                </Link>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>

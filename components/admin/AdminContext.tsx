@@ -161,9 +161,9 @@ const initialCmsData: CmsDataState = {
     {
       id: 1,
       image: brandAssets.hero[0].image,
-      title: "THE ECLIPSE SERIES",
+      title: "WHERE VISION BECOMES MIRAGE.",
       subtitle: "Geometric Precision Meets Raw Acetate",
-      cta1: "Shop Eclipse",
+      cta1: "EXPLORE COLLECTION",
       cta2: "Atelier Vision",
     },
     {
@@ -192,25 +192,25 @@ const initialCmsData: CmsDataState = {
     href: "/best-sellers"
   },
   everydayBanner: {
-    title: "EVERYDAY ESSENTIALS",
+    title: "WEAR THE SILENCE",
     subtitle: "Comfort-engineered fits utilizing hyper-light titanium hinges and double-polished raw organic acetates.",
     image: brandAssets.collections.everyday,
-    cta: "Shop Essentials",
+    cta: "SHOP NOW",
     href: "/shop"
   },
   creativeShowcase: mockCreativeShowcase,
   mediaShowcase: mockMediaShowcase,
   brandStory: {
-    title: "OUR HERITAGE",
+    title: "CRAFTSMANSHIP WITHOUT COMPROMISE",
     subtitle: "THE ARCHITECTURE OF EYEWEAR",
     description: "Si Mirage was born from the desire to treat eyewear as a structural object. Every frame is designed with a specific geometric weight, architectural stability, and cinematic personality.",
     mission: "To eliminate the noise of mass-produced fashion and return to the discipline of craft.",
     vision: "A world where objects are bought to be kept, cherished, and styled with intellectual confidence.",
     image: "/images/20250201_233639.jpg",
-    stat1_number: "24",
-    stat1_label: "STEPS IN HAND-POLISHING",
-    stat2_number: "100%",
-    stat2_label: "JAPANESE TITANIUM HINGES",
+    stat1_number: "1987",
+    stat1_label: "FOUNDED",
+    stat2_number: "47",
+    stat2_label: "AWARDS",
   },
   videoHero: {
     src: brandAssets.video.src,

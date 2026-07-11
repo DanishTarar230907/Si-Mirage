@@ -36,31 +36,21 @@ export default function MediaShowcase() {
   }, [mediaShowcase.length]);
 
   const getLayoutClasses = (layout: string) => {
-    switch(layout) {
-      case '16:9': return 'col-span-1 md:col-span-2 row-span-1 aspect-video';
-      case '9:16': return 'col-span-1 row-span-2 aspect-[9/16]';
-      case '1:1': return 'col-span-1 row-span-1 aspect-square';
-      default: return 'col-span-1 row-span-1 aspect-square';
-    }
+    return 'col-span-1 aspect-[3/4] md:aspect-[9/16]'; // Force tall vertical layout for all
   };
 
   return (
-    <section className="py-24 md:py-32 bg-[#050505] text-white overflow-hidden relative">
+    <section className="py-32 bg-[#FAF9F6] text-black overflow-hidden relative">
       <div className="container mx-auto px-6 md:px-12">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <h4 className="text-white/50 tracking-[0.2em] uppercase text-xs font-bold mb-4">The Experience</h4>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight">STORIES IN <span className="font-medium italic">MOTION</span></h2>
-          </div>
-          <p className="text-white/60 font-light max-w-md md:text-right text-sm">
-            Cinematic campaigns, behind-the-scenes craftsmanship, and moments that define the Si Mirage lifestyle.
-          </p>
+        <div className="flex flex-col mb-16">
+          <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-2">The Experience</h4>
+          <h2 className="text-3xl md:text-5xl font-serif font-light text-black tracking-widest uppercase">STORIES IN MOTION</h2>
         </div>
 
-        {/* Strict CSS Grid Layout */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 auto-rows-auto">
-          {mediaShowcase.map((item, idx) => (
+        {/* Strict 5-column layout */}
+        <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 lg:gap-8">
+          {mediaShowcase.slice(0, 5).map((item, idx) => (
             <div 
               key={item.id || idx} 
               className={`media-item relative overflow-hidden group cursor-pointer bg-zinc-900 shadow-2xl ${getLayoutClasses(item.layout)}`}

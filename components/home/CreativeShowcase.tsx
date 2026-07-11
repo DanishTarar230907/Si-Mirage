@@ -35,13 +35,13 @@ export default function CreativeShowcase() {
     }
   }, [creativeShowcase.length]);
 
-  const getGridClasses = (size: string) => {
-    switch(size) {
-      case 'large': return 'col-span-1 md:col-span-2 row-span-2';
-      case 'tall': return 'col-span-1 row-span-2';
-      case 'wide': return 'col-span-1 md:col-span-2 row-span-1';
-      case 'medium': return 'col-span-1 row-span-1';
-      default: return 'col-span-1 row-span-1'; // small
+  const getGridClasses = (idx: number) => {
+    switch(idx) {
+      case 0: return 'col-span-1 md:col-span-2 row-span-2'; // Left tall
+      case 1: return 'col-span-1 md:col-span-2 row-span-1'; // Right wide top
+      case 2: return 'col-span-1 md:col-span-1 row-span-1'; // Right bottom 1
+      case 3: return 'col-span-1 md:col-span-1 row-span-1'; // Right bottom 2
+      default: return 'hidden';
     }
   };
 
@@ -49,21 +49,16 @@ export default function CreativeShowcase() {
     <section className="py-32 bg-[#FAF9F6] overflow-hidden relative">
       <div className="container mx-auto px-8">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-4">Creative Studio</h4>
-            <h2 className="text-3xl md:text-5xl font-serif font-light text-black">VISUAL <span className="font-medium">STORIES</span></h2>
-          </div>
-          <p className="text-black/70 font-sans font-light max-w-md md:text-right">
-            Explore our latest brand campaigns, editorial photography, and creative explorations.
-          </p>
+        <div className="flex flex-col items-center justify-center text-center mb-16 gap-4">
+          <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold">Creative Studio</h4>
+          <h2 className="text-3xl md:text-5xl font-serif font-light text-black uppercase tracking-widest">THE CREATIVE STUDIO</h2>
         </div>
 
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[300px]">
-          {creativeShowcase.map((item, idx) => (
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[300px]">
+          {creativeShowcase.slice(0, 4).map((item, idx) => (
             <div 
               key={item.id || idx} 
-              className={`creative-item relative overflow-hidden group cursor-pointer bg-background ${getGridClasses(item.size)}`}
+              className={`creative-item relative overflow-hidden group cursor-pointer bg-background ${getGridClasses(idx)}`}
             >
               <AdminEditable section="creativeShowcase" field="coverImage" index={idx} type="image" className="w-full h-full">
                 <Image 

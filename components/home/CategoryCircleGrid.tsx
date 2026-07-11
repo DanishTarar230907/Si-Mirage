@@ -35,9 +35,9 @@ export default function CategoryCircleGrid() {
   return (
     <section className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-light mb-4 text-foreground">SHOP BY <span className="font-medium">SILHOUETTE</span></h2>
-          <p className="text-foreground/60 max-w-xl mx-auto font-light">Find your perfect frame shape.</p>
+        <div className="flex flex-col items-center justify-center text-center mb-16 gap-4">
+          <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold">Collections</h4>
+          <h2 className="text-3xl md:text-5xl font-serif font-light text-black uppercase tracking-widest">SHOP BY SILHOUETTE</h2>
         </div>
         
         {/* Horizontal scroll container on mobile, grid on desktop */}
@@ -48,18 +48,18 @@ export default function CategoryCircleGrid() {
               href={`/shop?category=${cat.name.toLowerCase().replace(' ', '-')}`}
               className="category-circle flex-shrink-0 w-36 md:w-auto snap-center flex flex-col items-center group cursor-pointer"
             >
-              <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 bg-surface shadow-sm group-hover:shadow-xl transition-shadow duration-500">
+              <div className="relative w-32 h-32 md:w-48 md:h-48 overflow-hidden mb-6 bg-white border border-black/5 shadow-sm group-hover:shadow-xl transition-shadow duration-500">
                 <Image
                   src={cat.image}
                   alt={cat.name}
                   fill
                   sizes="(max-width: 768px) 150px, 200px"
-                  className="object-cover group-hover:scale-110 luxury-transition opacity-90 group-hover:opacity-100"
+                  className="object-cover group-hover:scale-110 luxury-transition opacity-100"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500" />
               </div>
-              <h3 className="text-xs font-bold uppercase luxury-tracking text-foreground group-hover:text-primary transition-colors text-center mt-3">{cat.name}</h3>
-              <p className="text-xs text-foreground/70 mt-1">{cat.count} Items</p>
+              <h3 className="text-xs font-bold font-sans uppercase tracking-[0.15em] text-black group-hover:text-black/70 transition-colors text-center mt-3">{cat.name}</h3>
+              <p className="text-[10px] text-black/50 mt-1 uppercase tracking-wider">{cat.count} Items</p>
             </Link>
           ))}
         </div>
