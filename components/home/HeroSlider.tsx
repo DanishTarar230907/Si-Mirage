@@ -50,14 +50,20 @@ export default function HeroSlider() {
         >
           <motion.div style={{ y }} className="relative w-full h-[110%] -top-[5%]">
             <AdminEditable section="hero" field="image" index={currentSlide} type="image" className="w-full h-full">
-              <Image
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide].title}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover object-center"
-              />
+              {slides[currentSlide].image ? (
+                <Image
+                  src={slides[currentSlide].image}
+                  alt={slides[currentSlide].title}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+              ) : (
+                <div className="w-full h-full bg-black/10 flex items-center justify-center text-white/50">
+                  [No Image]
+                </div>
+              )}
             </AdminEditable>
             {/* Subtle Gradient for Text Readability */}
             <div 
