@@ -36,7 +36,7 @@ export default function PremiumServices() {
   }, [services.length]);
 
   return (
-    <section className="py-16 bg-[#FAFAFA] overflow-hidden">
+    <section className="py-32 bg-white overflow-hidden">
       <div className="container mx-auto px-8">
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 text-center">
           {services.map((service, idx) => {
@@ -46,13 +46,13 @@ export default function PremiumServices() {
                 <IconComponent className="w-7 h-7 text-black stroke-[1.5] mb-6 group-hover:scale-110 luxury-transition" />
                 
                 <AdminEditable section="services" field="title" index={idx} type="text">
-                  <h3 className="text-sm font-bold uppercase tracking-[1.5px] mb-3 text-black">
+                  <h3 className="text-sm font-sans font-bold uppercase tracking-[1.5px] mb-3 text-black">
                     {service.title}
                   </h3>
                 </AdminEditable>
 
                 <AdminEditable section="services" field="desc" index={idx} type="textarea">
-                  <p className="text-[#666666] text-sm font-light leading-relaxed max-w-xs">
+                  <p className="text-[#666666] font-sans text-sm font-light leading-relaxed max-w-xs">
                     {service.desc}
                   </p>
                 </AdminEditable>

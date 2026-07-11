@@ -46,12 +46,12 @@ export default function BrandVideoHero() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover opacity-60 min-h-[80vh]"
+            className="w-full h-full object-cover opacity-100 min-h-[80vh]"
           />
         </AdminEditable>
 
-        {/* Cinematic Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+        {/* Cinematic Dark Overlay for Text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
       </div>
 
       {/* Content */}
@@ -61,7 +61,7 @@ export default function BrandVideoHero() {
           <Play className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-black ml-2 transition-colors" />
         </button>
         <AdminEditable section="videoHero" field="poster" type="image">
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-light text-white tracking-tight drop-shadow-2xl">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-serif font-light text-white tracking-tight drop-shadow-2xl">
             WATCH OUR <span className="font-medium italic">STORY</span>
           </h2>
         </AdminEditable>

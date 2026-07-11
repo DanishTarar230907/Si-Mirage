@@ -59,10 +59,9 @@ export default function HeroSlider() {
                 className="object-cover object-center"
               />
             </AdminEditable>
-            {/* Contrast Overlay */}
+            {/* Subtle Gradient for Text Readability */}
             <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))' }}
+              className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent"
             />
           </motion.div>
         </motion.div>
@@ -80,13 +79,13 @@ export default function HeroSlider() {
             className="flex flex-col items-center justify-center w-full max-w-5xl pointer-events-auto"
           >
             <AdminEditable section="hero" field="subtitle" index={currentSlide} type="text">
-              <h2 className="text-white/90 text-[14px] font-semibold tracking-[2px] uppercase mb-6 drop-shadow-md">
+              <h2 className="text-white/90 text-[14px] font-sans font-semibold tracking-[2px] uppercase mb-6 drop-shadow-md">
                 {slides[currentSlide].subtitle}
               </h2>
             </AdminEditable>
             
             <AdminEditable section="hero" field="title" index={currentSlide} type="text">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white mb-10 tracking-tight leading-tight drop-shadow-2xl">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-light text-white mb-10 tracking-tight leading-tight drop-shadow-2xl">
                 {slides[currentSlide].title.split(' ').map((word, i) => (
                   <span key={i} className={i === 1 ? 'font-medium italic' : ''}>{word} </span>
                 ))}

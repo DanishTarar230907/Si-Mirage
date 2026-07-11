@@ -36,12 +36,12 @@ export default function ProductCard({
 
   return (
     <div 
-      className="group flex flex-col relative"
+      className="group flex flex-col relative bg-white border border-black/5 hover:border-black/30 pb-6 transition-colors duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container with strict 4/5 aspect ratio */}
-      <div className="relative w-full aspect-[4/5] bg-surface overflow-hidden mb-6">
+      <div className="relative w-full aspect-[4/5] bg-white overflow-hidden mb-6">
         
         {/* Clickable Image Area */}
         <Link href={productUrl} className="absolute inset-0 z-0 block">
@@ -69,12 +69,12 @@ export default function ProductCard({
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
           {isNew && (
-            <span className="bg-foreground text-background text-[10px] font-bold tracking-[0.1em] px-3 py-1 uppercase">
+            <span className="bg-black text-white text-[10px] font-bold tracking-[0.1em] px-3 py-1 uppercase">
               NEW
             </span>
           )}
           {discountPrice && (
-            <span className="bg-primary text-background text-[10px] font-bold tracking-[0.1em] px-3 py-1 uppercase">
+            <span className="bg-[#D4AF37] text-white text-[10px] font-bold tracking-[0.1em] px-3 py-1 uppercase">
               SALE
             </span>
           )}
@@ -103,32 +103,32 @@ export default function ProductCard({
       <div className="flex flex-col items-center text-center px-4">
         
         {/* Category Subtitle */}
-        <span className="text-[10px] text-foreground/50 tracking-[0.2em] uppercase mb-2">
+        <span className="text-[10px] text-black/60 tracking-[0.2em] uppercase mb-2 font-sans">
           {category}
         </span>
         
         {/* Title (Bolder) */}
-        <Link href={productUrl} className="text-sm md:text-base font-bold tracking-wide text-foreground hover:text-primary transition-colors">
+        <Link href={productUrl} className="text-sm md:text-base font-bold tracking-wide text-black hover:text-[#D4AF37] transition-colors font-serif">
           {name}
         </Link>
         
         {/* Ratings */}
         <div className="flex items-center justify-center gap-1 mt-2">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className={`w-3 h-3 ${i < 4 ? 'text-primary fill-primary' : 'text-foreground/20 fill-foreground/20'}`} />
+            <Star key={i} className={`w-3 h-3 ${i < 4 ? 'text-[#D4AF37] fill-[#D4AF37]' : 'text-black/20 fill-black/20'}`} />
           ))}
-          <span className="text-[10px] text-foreground/50 ml-1 mt-[1px]">(12)</span>
+          <span className="text-[10px] text-black/50 ml-1 mt-[1px] font-sans">(12)</span>
         </div>
 
         {/* Price (Distinct 8px margin top) */}
-        <div className="flex items-center justify-center gap-3 text-sm mt-3">
+        <div className="flex items-center justify-center gap-3 text-sm mt-3 font-sans">
           {discountPrice ? (
             <>
-              <span className="text-foreground/50 line-through font-medium">{formatPrice(price)}</span>
-              <span className="text-primary font-bold">{formatPrice(discountPrice)}</span>
+              <span className="text-black/50 line-through font-medium">{formatPrice(price)}</span>
+              <span className="text-black font-bold">{formatPrice(discountPrice)}</span>
             </>
           ) : (
-            <span className="text-foreground font-medium">{formatPrice(price)}</span>
+            <span className="text-black font-medium">{formatPrice(price)}</span>
           )}
         </div>
       </div>

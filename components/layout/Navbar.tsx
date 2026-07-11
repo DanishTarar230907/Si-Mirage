@@ -171,7 +171,7 @@ export default function Navbar() {
     <div className="sticky top-0 z-[60] w-full flex flex-col shadow-sm">
       <AnnouncementBar />
 
-      <header className={`border-b border-foreground/10 py-5 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur' : 'bg-[#FFFFFF]'}`}>
+      <header className={`border-b border-black/5 py-5 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white'}`}>
         <div className="container mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 xl:px-16">
           <div className="flex items-center justify-start">
             <button
@@ -196,8 +196,8 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setActivePanel(null)}
-                      className={`group relative py-2 text-[10px] font-medium uppercase tracking-[0.15em] transition-colors xl:text-xs ${
-                        pathname === link.href || (isAdminRoute && pathname === '/admin') ? 'text-foreground' : 'text-foreground/80 hover:text-primary'
+                      className={`group relative py-2 text-[10px] font-medium uppercase tracking-[0.15em] transition-colors xl:text-xs font-sans ${
+                        pathname === link.href || (isAdminRoute && pathname === '/admin') ? 'text-black' : 'text-black/60 hover:text-black'
                       }`}
                     >
                       {link.name}

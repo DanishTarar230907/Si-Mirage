@@ -49,7 +49,7 @@ export default function EverydayCollectionBanner() {
             src={banner.image}
             alt={banner.title}
             fill
-            className="object-cover opacity-90 min-h-[90vh]"
+            className="object-cover opacity-100 min-h-[90vh]"
           />
         </AdminEditable>
         {/* Everyday Light Gradient Overlay */}
@@ -59,30 +59,30 @@ export default function EverydayCollectionBanner() {
 
       <div className="container mx-auto px-8 relative z-10 flex justify-end">
         <div className="max-w-xl everyday-content text-right">
-          <h4 className="text-foreground/50 luxury-tracking uppercase text-xs font-bold mb-6 flex items-center justify-end gap-4">
+          <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-6 flex items-center justify-end gap-4">
             Daily Essentials
-            <span className="w-12 h-[1px] bg-foreground/30"></span>
+            <span className="w-12 h-[1px] bg-black/30"></span>
           </h4>
           
           <AdminEditable section="everydayBanner" field="title" type="text">
-            <h2 className="text-5xl md:text-7xl font-light text-foreground mb-6 uppercase tracking-wide">
+            <h2 className="text-5xl md:text-7xl font-serif font-light text-black mb-6 uppercase tracking-wide">
               {banner.title}
             </h2>
           </AdminEditable>
           
           <AdminEditable section="everydayBanner" field="subtitle" type="textarea">
-            <p className="text-foreground/70 font-light leading-relaxed mb-10 text-lg">
+            <p className="text-black/70 font-sans font-light leading-relaxed mb-10 text-lg">
               {banner.subtitle}
             </p>
           </AdminEditable>
           
           <div className="flex flex-col items-end gap-2 mb-8">
-            <span className="text-sm font-bold uppercase luxury-tracking text-primary">Starting at PKR 2,999</span>
+            <span className="text-sm font-bold uppercase luxury-tracking text-[#D4AF37]">Starting at PKR 2,999</span>
           </div>
           
           <Link href={banner.href}>
             <AdminEditable section="everydayBanner" field="cta" type="text">
-              <span className="group inline-flex items-center justify-center gap-4 bg-foreground text-background px-10 py-5 uppercase luxury-tracking text-xs font-bold hover:bg-primary hover:text-white luxury-transition shadow-lg cursor-pointer">
+              <span className="group inline-flex items-center justify-center gap-4 bg-black text-white px-10 py-5 uppercase font-sans tracking-[0.15em] text-[10px] font-bold hover:bg-black/80 transition-colors shadow-lg cursor-pointer">
                 {banner.cta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>

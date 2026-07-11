@@ -31,7 +31,7 @@ const ArrowRightIcon = () => (
 
 export default function Footer() {
   return (
-    <footer className="bg-background pt-24 pb-12 border-t border-foreground/10 text-foreground">
+    <footer className="bg-black pt-24 pb-12 border-t border-white/10 text-white">
       <div className="container mx-auto px-6 md:px-12 xl:px-16">
         
         {/* Top Section: 4 Columns */}
@@ -39,46 +39,46 @@ export default function Footer() {
           
           {/* Column 1: Explore */}
           <nav className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-foreground">Explore</h4>
-            <Link href="/shop" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">All Collections</Link>
-            <Link href="/shop?category=luxury" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">The Luxury Edit</Link>
-            <Link href="/shop?category=new-arrivals" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">New Arrivals</Link>
-            <Link href="/about" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Our Story</Link>
-            <Link href="/admin" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Admin Dashboard</Link>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-white">Explore</h4>
+            <Link href="/shop" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">All Collections</Link>
+            <Link href="/shop?category=luxury" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">The Luxury Edit</Link>
+            <Link href="/shop?category=new-arrivals" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">New Arrivals</Link>
+            <Link href="/about" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Our Story</Link>
+            <Link href="/admin" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Admin Dashboard</Link>
           </nav>
 
           {/* Column 2: Insider */}
           <nav className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-foreground">Insider</h4>
-            <Link href="/creators" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Creator Program</Link>
-            <Link href="/careers" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Careers</Link>
-            <Link href="/press" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Press</Link>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-white">Insider</h4>
+            <Link href="/creators" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Creator Program</Link>
+            <Link href="/careers" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Careers</Link>
+            <Link href="/press" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Press</Link>
           </nav>
 
           {/* Column 3: Support */}
           <nav className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-foreground">Support</h4>
-            <Link href="/contact" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Contact Us</Link>
-            <Link href="/faq" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">FAQ</Link>
-            <Link href="/shipping" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Shipping & Returns</Link>
-            <Link href="/warranty" className="text-sm font-light text-foreground/70 hover:text-primary transition-colors inline-block w-fit">Warranty</Link>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-white">Support</h4>
+            <Link href="/contact" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Contact Us</Link>
+            <Link href="/faq" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">FAQ</Link>
+            <Link href="/shipping" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Shipping & Returns</Link>
+            <Link href="/warranty" className="text-sm font-light text-white/70 hover:text-white transition-colors inline-block w-fit">Warranty</Link>
           </nav>
 
           {/* Column 4: Newsletter */}
           <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-foreground">Newsletter</h4>
-            <p className="text-sm font-light text-foreground/70 leading-relaxed mb-2">Join our mailing list for early access to new releases.</p>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-4 text-white">Newsletter</h4>
+            <p className="text-sm font-light text-white/70 leading-relaxed mb-2">Join our mailing list for early access to new releases.</p>
             
             <form className="flex w-full group" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
                 placeholder="Email address" 
-                className="flex-1 bg-transparent border-b border-foreground/20 py-3 text-sm font-light placeholder:text-foreground/40 focus:outline-none focus:border-foreground transition-colors"
+                className="flex-1 bg-transparent border-b border-white/20 py-3 text-sm font-light placeholder:text-white/40 focus:outline-none focus:border-white transition-colors text-white"
                 required
               />
               <button 
                 type="submit"
-                className="border-b border-foreground/20 py-3 text-foreground/50 group-hover:text-foreground hover:text-primary transition-colors"
+                className="border-b border-white/20 py-3 text-white/50 group-hover:text-white hover:text-white transition-colors"
               >
                 <ArrowRightIcon />
               </button>
@@ -88,7 +88,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center justify-center border-t border-foreground/10 pt-12 pb-6 gap-8">
+        <div className="flex flex-col items-center justify-center border-t border-white/10 pt-12 pb-6 gap-8">
           
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Image src="/logo.png" alt="Si Mirage" width={120} height={35} className="object-contain" />
@@ -96,23 +96,23 @@ export default function Footer() {
 
           {/* Horizontally Centered SVG Social Icons */}
           <div className="flex items-center justify-center gap-8">
-            <a href="#" className="text-foreground/50 hover:text-foreground transition-colors duration-300" aria-label="Instagram">
+            <a href="#" className="text-white/50 hover:text-white transition-colors duration-300" aria-label="Instagram">
               <InstagramIcon />
             </a>
-            <a href="#" className="text-foreground/50 hover:text-foreground transition-colors duration-300" aria-label="Twitter">
+            <a href="#" className="text-white/50 hover:text-white transition-colors duration-300" aria-label="Twitter">
               <TwitterIcon />
             </a>
-            <a href="#" className="text-foreground/50 hover:text-foreground transition-colors duration-300" aria-label="Facebook">
+            <a href="#" className="text-white/50 hover:text-white transition-colors duration-300" aria-label="Facebook">
               <FacebookIcon />
             </a>
           </div>
           
           <div className="flex items-center gap-6 mt-4">
-            <Link href="/privacy" className="text-[10px] uppercase tracking-[0.1em] font-medium text-foreground/50 hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="text-[10px] uppercase tracking-[0.1em] font-medium text-foreground/50 hover:text-primary transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="text-[10px] uppercase tracking-[0.1em] font-medium text-white/50 hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[10px] uppercase tracking-[0.1em] font-medium text-white/50 hover:text-white transition-colors">Terms of Service</Link>
           </div>
 
-          <p className="text-[10px] uppercase tracking-[0.1em] font-medium text-foreground/40 mt-2">
+          <p className="text-[10px] uppercase tracking-[0.1em] font-medium text-white/40 mt-2">
             &copy; {new Date().getFullYear()} Si Mirage. All rights reserved.
           </p>
         </div>

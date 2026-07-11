@@ -19,25 +19,25 @@ export default function TrendingCarousel() {
   };
 
   return (
-    <section className="py-24 bg-background overflow-hidden relative">
+    <section className="py-32 bg-[#FAF9F6] overflow-hidden relative">
       <div className="container mx-auto px-8">
         
         <div className="flex items-end justify-between mb-16">
           <div>
-            <h4 className="text-foreground/50 luxury-tracking uppercase text-xs font-bold mb-4">Trending Now</h4>
-            <h2 className="text-3xl md:text-5xl font-light">SEASONAL <span className="font-medium">ESSENTIALS</span></h2>
+            <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-4">Trending Now</h4>
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-black">SEASONAL <span className="font-medium">ESSENTIALS</span></h2>
           </div>
           
           <div className="hidden md:flex gap-4">
             <button 
               onClick={() => scroll('left')}
-              className="w-12 h-12 border border-foreground/20 rounded-full flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
+              className="w-12 h-12 border border-black/20 rounded-full flex items-center justify-center text-black hover:bg-black hover:text-white transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button 
               onClick={() => scroll('right')}
-              className="w-12 h-12 border border-foreground/20 rounded-full flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
+              className="w-12 h-12 border border-black/20 rounded-full flex items-center justify-center text-black hover:bg-black hover:text-white transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

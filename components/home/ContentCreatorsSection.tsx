@@ -45,7 +45,7 @@ export default function ContentCreatorsSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-24 md:py-32 bg-background overflow-hidden">
+    <section ref={containerRef} className="py-32 bg-white overflow-hidden">
       <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
@@ -56,8 +56,8 @@ export default function ContentCreatorsSection() {
               fill
               className="object-cover"
             />
-            {/* Cinematic Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+            {/* Subtle Overlay for text */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-10 left-10 text-white flex items-center gap-4">
               <div className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-sm">
                 <Video className="w-5 h-5 text-white" />
@@ -70,12 +70,12 @@ export default function ContentCreatorsSection() {
           </div>
 
           <div className="lg:pl-10">
-            <h4 className="creator-text text-primary luxury-tracking uppercase text-xs font-bold mb-6">Creator Series</h4>
-            <h2 className="creator-text text-4xl md:text-5xl lg:text-6xl font-light mb-8 leading-tight">
+            <h4 className="creator-text text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-6">Creator Series</h4>
+            <h2 className="creator-text text-4xl md:text-5xl lg:text-6xl font-serif font-light mb-8 leading-tight text-black">
               BUILT FOR <br/>
               <span className="font-medium">MODERN CREATORS</span>
             </h2>
-            <p className="creator-text text-foreground/70 font-light leading-relaxed mb-10 text-lg">
+            <p className="creator-text text-black/70 font-sans font-light leading-relaxed mb-10 text-lg">
               Whether you&apos;re filming YouTube videos, creating Instagram content, or producing cinematic reels, Si Mirage helps you look your absolute best on camera with anti-glare technology and bold silhouettes.
             </p>
             
@@ -107,10 +107,10 @@ export default function ContentCreatorsSection() {
             </div>
 
             <div className="creator-text flex flex-wrap gap-6">
-              <Link href="/creators" className="group inline-flex items-center justify-center gap-4 bg-foreground text-background px-8 py-4 uppercase luxury-tracking text-[10px] font-bold hover:bg-primary hover:text-white luxury-transition">
+              <Link href="/creators" className="group inline-flex items-center justify-center gap-4 bg-black text-white px-8 py-4 uppercase font-sans tracking-[0.15em] text-[10px] font-bold hover:bg-gray-800 transition-colors">
                 Join Creator Program
               </Link>
-              <Link href="/about-creators" className="group inline-flex items-center justify-center gap-2 border-b border-foreground pb-1 text-[10px] uppercase luxury-tracking font-bold hover:text-primary hover:border-primary luxury-transition">
+              <Link href="/about-creators" className="group inline-flex items-center justify-center gap-2 border-b-2 border-black pb-1 text-[10px] uppercase font-sans tracking-[0.15em] font-bold text-black hover:text-black/70 hover:border-black/70 transition-colors">
                 Learn More <ArrowRight className="w-3 h-3" />
               </Link>
             </div>

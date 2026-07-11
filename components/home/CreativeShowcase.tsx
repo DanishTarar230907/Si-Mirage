@@ -46,15 +46,15 @@ export default function CreativeShowcase() {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-surface overflow-hidden relative">
+    <section className="py-32 bg-[#FAF9F6] overflow-hidden relative">
       <div className="container mx-auto px-8">
         
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <h4 className="text-primary luxury-tracking uppercase text-xs font-bold mb-4">Creative Studio</h4>
-            <h2 className="text-3xl md:text-5xl font-light">VISUAL <span className="font-medium">STORIES</span></h2>
+            <h4 className="text-black/60 font-sans luxury-tracking uppercase text-xs font-bold mb-4">Creative Studio</h4>
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-black">VISUAL <span className="font-medium">STORIES</span></h2>
           </div>
-          <p className="text-foreground/70 font-light max-w-md md:text-right">
+          <p className="text-black/70 font-sans font-light max-w-md md:text-right">
             Explore our latest brand campaigns, editorial photography, and creative explorations.
           </p>
         </div>
@@ -75,8 +75,9 @@ export default function CreativeShowcase() {
                 />
               </AdminEditable>
 
-              {/* Elegant Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+              {/* Elegant Gradient Overlay - fully clear by default, darkens on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 pointer-events-none" />
               
               <div className="absolute inset-0 p-6 flex flex-col justify-end text-white pointer-events-none">
                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 pointer-events-auto">

@@ -51,11 +51,10 @@ export default function LuxuryCollectionBanner() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-80 min-h-[90vh]"
+            className="object-cover opacity-100 min-h-[90vh]"
           />
         </AdminEditable>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent pointer-events-none" />
       </motion.div>
 
       <div className="relative z-10 mx-auto flex min-h-[90vh] w-full max-w-7xl items-center px-6 py-24 sm:px-10 lg:px-16">
@@ -70,7 +69,7 @@ export default function LuxuryCollectionBanner() {
             Haute Couture
           </p>
           <AdminEditable section="luxuryBanner" field="title" type="text">
-            <h2 className="mb-6 text-4xl leading-tight text-white sm:text-5xl lg:text-6xl uppercase font-light tracking-wide">
+            <h2 className="mb-6 text-4xl leading-tight text-white sm:text-5xl lg:text-6xl uppercase font-serif font-light tracking-wide">
               {banner.title}
             </h2>
           </AdminEditable>
