@@ -532,6 +532,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
             ? JSON.parse(s.page_layouts) 
             : s.page_layouts;
         }
+        if (s.brand_story) {
+          updated.brandStory = typeof s.brand_story === 'string'
+            ? JSON.parse(s.brand_story)
+            : s.brand_story;
+        }
       }
 
       if (dbOrders && dbOrders.length > 0) {
@@ -800,7 +805,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       // 1. Publish Hero Slides
-      await supabase.from('hero_slides').delete().neq('id', '00000000-0000-0000-0000-000000000000'); // clear all
+      await supabase.from('hero_slides').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError(); // clear all
       const heroSlidesToInsert = cmsData.hero.map((h, idx) => ({
         title: h.title,
         subtitle: h.subtitle,
@@ -810,18 +815,18 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         display_order: idx,
         is_active: true
       }));
-      await supabase.from('hero_slides').insert(heroSlidesToInsert);
+      await supabase.from('hero_slides').insert(heroSlidesToInsert).throwOnError();
 
       // 2. Publish Announcement Bar
-      await supabase.from('announcements').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('announcements').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('announcements').insert([{
         message: cmsData.announcement.text,
         is_active: true,
         display_order: 1
-      }]);
+      }]).throwOnError();
 
       // 3. Publish Testimonials
-      await supabase.from('testimonials').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('testimonials').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const testimonialsToInsert = cmsData.testimonials.map(t => ({
         name: t.name,
         location: t.location,
@@ -831,10 +836,10 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         is_active: true,
         is_featured: true
       }));
-      await supabase.from('testimonials').insert(testimonialsToInsert);
+      await supabase.from('testimonials').insert(testimonialsToInsert).throwOnError();
 
       // 4. Publish Categories
-      await supabase.from('categories').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('categories').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const categoriesToInsert = cmsData.categories.map((c, idx) => ({
         name: c.name,
         slug: c.name.toLowerCase().replace(' ', '-'),
@@ -843,10 +848,10 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         is_featured: idx < 3,
         is_active: true
       }));
-      await supabase.from('categories').insert(categoriesToInsert);
+      await supabase.from('categories').insert(categoriesToInsert).throwOnError();
 
       // 5. Publish Collections
-      await supabase.from('collections').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('collections').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('collections').insert([
         {
           name: cmsData.luxuryBanner.title,
@@ -866,41 +871,42 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
           is_featured: true,
           is_active: true
         }
-      ]);
+      ]).throwOnError();
 
       // 6. Publish Team members
-      await supabase.from('team_members').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('team_members').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const teamToInsert = cmsData.team.map(t => ({
         name: t.name,
         role: t.role,
         photo_url: t.image,
         is_active: true
       }));
-      await supabase.from('team_members').insert(teamToInsert);
+      await supabase.from('team_members').insert(teamToInsert).throwOnError();
 
       // 7. Publish Gallery Items
-      await supabase.from('gallery_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('gallery_items').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const galleryToInsert = cmsData.gallery.map((g, idx) => ({
         image_url: g,
         display_order: idx,
         is_active: true
       }));
-      await supabase.from('gallery_items').insert(galleryToInsert);
+      await supabase.from('gallery_items').insert(galleryToInsert).throwOnError();
 
       // 8. Publish Site Settings
-      await supabase.from('site_settings').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('site_settings').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('site_settings').insert([{
         newsletter_heading: cmsData.newsletter.heading,
         newsletter_description: cmsData.newsletter.description,
-        page_layouts: cmsData.pageLayouts
-      }]);
+        page_layouts: cmsData.pageLayouts,
+        brand_story: cmsData.brandStory
+      }]).throwOnError();
 
       // 9. Sync Products
       const currentIds = cmsData.shopProducts.map(p => p.id).filter(id => typeof id === 'string');
       if (currentIds.length > 0) {
-        await supabase.from('products').delete().not('id', 'in', `(${currentIds.join(',')})`);
+        await supabase.from('products').delete().not('id', 'in', `(${currentIds.join(',')})`).throwOnError();
       } else {
-        await supabase.from('products').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        await supabase.from('products').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       }
 
       const productsToUpsert = cmsData.shopProducts.map(p => {
@@ -919,31 +925,32 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }
         return productObj;
       });
-      await supabase.from('products').upsert(productsToUpsert);
+      await supabase.from('products').upsert(productsToUpsert).throwOnError();
 
       // 10. Sync Creative Showcases
-      await supabase.from('creative_showcases').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('creative_showcases').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const creativeToInsert = (cmsData.creativeShowcase || []).map((item, idx) => ({
         title: item.title || '',
         subtitle: item.subtitle || '',
-        image_url: item.image || '',
+        cover_image: item.coverImage || item.image || '',
         size: item.size || 'medium',
         display_order: idx,
         is_active: true
       }));
-      await supabase.from('creative_showcases').insert(creativeToInsert);
+      await supabase.from('creative_showcases').insert(creativeToInsert).throwOnError();
 
       // 11. Sync Media Showcases
-      await supabase.from('media_showcases').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      await supabase.from('media_showcases').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const mediaToInsert = (cmsData.mediaShowcase || []).map((item, idx) => ({
         title: item.title || '',
         subtitle: item.subtitle || '',
         video_url: item.video || '',
+        cover_image: item.coverImage || '',
         layout: item.layout || 'split',
         display_order: idx,
         is_active: true
       }));
-      await supabase.from('media_showcases').insert(mediaToInsert);
+      await supabase.from('media_showcases').insert(mediaToInsert).throwOnError();
 
       setHasUnsavedChanges(false);
       alert('CMS changes published successfully to the live storefront database!');
