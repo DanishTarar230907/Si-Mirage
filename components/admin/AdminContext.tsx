@@ -415,7 +415,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     setCmsData(prev => {
       const updated = { ...prev };
       
-      if (dbProducts && dbProducts.length > 0) {
+      if (dbProducts) {
         updated.shopProducts = dbProducts.map((p: any) => ({
           id: p.id,
           name: p.name,
@@ -433,17 +433,19 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
           updated.trendingProducts = featured.slice(0, 4).map((p: any) => ({
             id: p.id,
             name: p.name,
-            category: p.category.toUpperCase(),
+            category: (p.category || 'luxury').toUpperCase(),
             price: Number(p.price),
             discountPrice: p.discount_price ? Number(p.discount_price) : undefined,
             image: p.image_url || p.images?.[0] || "/images/20250201_233239.jpg",
             hoverImage: p.hover_image_url || p.images?.[1] || p.images?.[0] || "/images/20250201_233239.jpg",
             isNew: p.is_new || false
           }));
+        } else {
+          updated.trendingProducts = [];
         }
       }
 
-      if (dbHeroSlides && dbHeroSlides.length > 0) {
+      if (dbHeroSlides) {
         updated.hero = dbHeroSlides.map((h: any) => ({
           id: h.id,
           image: h.image_url,
@@ -454,7 +456,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbAnnouncements && dbAnnouncements.length > 0) {
+      if (dbAnnouncements) {
         const active = dbAnnouncements.find((a: any) => a.is_active);
         if (active) {
           updated.announcement = {
@@ -463,10 +465,12 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
             textColor: "#f7f4ee",
             visible: true
           };
+        } else {
+          updated.announcement = { ...updated.announcement, visible: false };
         }
       }
 
-      if (dbCategories && dbCategories.length > 0) {
+      if (dbCategories) {
         updated.categories = dbCategories.map((c: any) => ({
           name: c.name,
           image: c.image_url || "/images/20250201_233730.jpg",
@@ -474,7 +478,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbCollections && dbCollections.length > 0) {
+      if (dbCollections) {
         const lux = dbCollections.find((c: any) => c.slug === 'luxury');
         if (lux) {
           updated.luxuryBanner = {
@@ -497,7 +501,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      if (dbTestimonials && dbTestimonials.length > 0) {
+      if (dbTestimonials) {
         updated.testimonials = dbTestimonials.map((t: any) => ({
           id: t.id,
           name: t.name,
@@ -508,11 +512,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbGallery && dbGallery.length > 0) {
+      if (dbGallery) {
         updated.gallery = dbGallery.map((g: any) => g.image_url);
       }
 
-      if (dbTeam && dbTeam.length > 0) {
+      if (dbTeam) {
         updated.team = dbTeam.map((t: any) => ({
           name: t.name,
           role: t.role,
@@ -539,7 +543,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      if (dbOrders && dbOrders.length > 0) {
+      if (dbOrders) {
         updated.orders = dbOrders.map((o: any) => ({
           id: o.id.slice(0, 8),
           customer: o.shipping_address?.name || "Customer",
@@ -551,7 +555,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbCustomers && dbCustomers.length > 0) {
+      if (dbCustomers) {
         updated.customers = dbCustomers.map((c: any) => ({
           id: c.id,
           name: c.name,
@@ -562,7 +566,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbDiscounts && dbDiscounts.length > 0) {
+      if (dbDiscounts) {
         updated.discounts = dbDiscounts.map((d: any) => ({
           id: d.id,
           code: d.code,
@@ -572,7 +576,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbCreative && dbCreative.length > 0) {
+      if (dbCreative) {
         updated.creativeShowcase = dbCreative.map((c: any) => ({
           id: c.id,
           title: c.title,
@@ -584,7 +588,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         }));
       }
 
-      if (dbMedia && dbMedia.length > 0) {
+      if (dbMedia) {
         updated.mediaShowcase = dbMedia.map((m: any) => ({
           id: m.id,
           title: m.title,
@@ -807,11 +811,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 1. Publish Hero Slides
       await supabase.from('hero_slides').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError(); // clear all
       const heroSlidesToInsert = cmsData.hero.map((h, idx) => ({
-        title: h.title,
-        subtitle: h.subtitle,
-        image_url: h.image,
-        cta1_text: h.cta1,
-        cta2_text: h.cta2,
+        title: h.title || '',
+        subtitle: h.subtitle || '',
+        image_url: h.image || '',
+        cta1_text: h.cta1 || '',
+        cta2_text: h.cta2 || '',
         display_order: idx,
         is_active: true
       }));
@@ -820,7 +824,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 2. Publish Announcement Bar
       await supabase.from('announcements').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('announcements').insert([{
-        message: cmsData.announcement.text,
+        message: cmsData.announcement.text || '',
         is_active: true,
         display_order: 1
       }]).throwOnError();
@@ -828,11 +832,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 3. Publish Testimonials
       await supabase.from('testimonials').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const testimonialsToInsert = cmsData.testimonials.map(t => ({
-        name: t.name,
-        location: t.location,
-        review: t.review,
-        rating: t.rating,
-        avatar_url: t.avatar,
+        name: t.name || '',
+        location: t.location || '',
+        review: t.review || '',
+        rating: t.rating || 5,
+        avatar_url: t.avatar || '',
         is_active: true,
         is_featured: true
       }));
@@ -841,9 +845,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 4. Publish Categories
       await supabase.from('categories').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const categoriesToInsert = cmsData.categories.map((c, idx) => ({
-        name: c.name,
-        slug: c.name.toLowerCase().replace(' ', '-'),
-        image_url: c.image,
+        name: c.name || '',
+        slug: (c.name || '').toLowerCase().replace(' ', '-'),
+        image_url: c.image || '',
         display_order: idx,
         is_featured: idx < 3,
         is_active: true
@@ -854,19 +858,19 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       await supabase.from('collections').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('collections').insert([
         {
-          name: cmsData.luxuryBanner.title,
+          name: cmsData.luxuryBanner.title || 'Luxury',
           slug: 'luxury',
-          description: cmsData.luxuryBanner.subtitle,
-          image_url: cmsData.luxuryBanner.image,
+          description: cmsData.luxuryBanner.subtitle || '',
+          image_url: cmsData.luxuryBanner.image || '',
           display_order: 1,
           is_featured: true,
           is_active: true
         },
         {
-          name: cmsData.everydayBanner.title,
+          name: cmsData.everydayBanner.title || 'Everyday',
           slug: 'everyday',
-          description: cmsData.everydayBanner.subtitle,
-          image_url: cmsData.everydayBanner.image,
+          description: cmsData.everydayBanner.subtitle || '',
+          image_url: cmsData.everydayBanner.image || '',
           display_order: 2,
           is_featured: true,
           is_active: true
@@ -876,9 +880,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 6. Publish Team members
       await supabase.from('team_members').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const teamToInsert = cmsData.team.map(t => ({
-        name: t.name,
-        role: t.role,
-        photo_url: t.image,
+        name: t.name || '',
+        role: t.role || 'model',
+        photo_url: t.image || '',
         is_active: true
       }));
       await supabase.from('team_members').insert(teamToInsert).throwOnError();
@@ -886,7 +890,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 7. Publish Gallery Items
       await supabase.from('gallery_items').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       const galleryToInsert = cmsData.gallery.map((g, idx) => ({
-        image_url: g,
+        image_url: g || '',
         display_order: idx,
         is_active: true
       }));
@@ -895,10 +899,10 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       // 8. Publish Site Settings
       await supabase.from('site_settings').delete().neq('id', '00000000-0000-0000-0000-000000000000').throwOnError();
       await supabase.from('site_settings').insert([{
-        newsletter_heading: cmsData.newsletter.heading,
-        newsletter_description: cmsData.newsletter.description,
-        page_layouts: cmsData.pageLayouts,
-        brand_story: cmsData.brandStory
+        newsletter_heading: cmsData.newsletter.heading || '',
+        newsletter_description: cmsData.newsletter.description || '',
+        page_layouts: cmsData.pageLayouts || {},
+        brand_story: cmsData.brandStory || {}
       }]).throwOnError();
 
       // 9. Sync Products
@@ -911,11 +915,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
 
       const productsToUpsert = cmsData.shopProducts.map(p => {
         const productObj: any = {
-          name: p.name,
+          name: p.name || 'Unnamed Product',
           description: p.description || '',
           price: Number(p.price) || 0,
           discount_price: p.discountPrice ? Number(p.discountPrice) : null,
-          category: p.category.toLowerCase(),
+          category: (p.category || 'luxury').toLowerCase(),
           stock_quantity: Number(p.stock) || 0,
           images: [p.image, p.hoverImage].filter(Boolean),
           is_featured: cmsData.trendingProducts.some(tp => tp.id === p.id)
