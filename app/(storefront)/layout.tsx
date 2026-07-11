@@ -5,6 +5,7 @@ import { Playfair_Display, Inter } from 'next/font/google';
 import SmoothScroll from '@/components/animations/SmoothScroll';
 import CustomerAuthProvider from '@/components/auth/CustomerAuthProvider';
 import NavigationControls from '@/components/layout/NavigationControls';
+import CartDrawer from '@/components/layout/CartDrawer';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function StorefrontLayout({
         <SmoothScroll />
         <NavigationControls />
         <Navbar />
+        <CartDrawer />
         <main className="flex-grow relative z-10">
           {children}
         </main>

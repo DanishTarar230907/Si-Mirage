@@ -37,7 +37,7 @@ export const initialCmsData: CmsDataState = {
     { name: 'Round', image: brandAssets.categories.round, count: 9 },
     { name: 'Square', image: brandAssets.categories.square, count: 15 },
   ],
-  trendingProducts: bestSellerProducts,
+  trendingProducts: bestSellerProducts as any,
   luxuryBanner: {
     title: "THE LUXURY CAPSULE",
     subtitle: "Shorn of excessive detail, focusing entirely on structural weight and clean angles. Designed for architectural symmetry.",
@@ -104,7 +104,7 @@ export const initialCmsData: CmsDataState = {
     description: "Subscribe for early access to new collections, limited-edition designs, and invitation-only atelier launches.",
     cta: "Subscribe",
   },
-  shopProducts: shopProducts,
+  shopProducts: shopProducts as any,
   team: [
     { name: 'Zayn', role: 'Lead Designer', image: 'Team+Member+1' },
     { name: 'Sarah', role: 'Creative Director', image: 'Team+Member+2' },

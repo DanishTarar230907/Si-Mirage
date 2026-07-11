@@ -51,9 +51,7 @@ export default function TrendingCarousel() {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {products.map((product) => {
-            const rawPrice = typeof product.price === 'number' 
-              ? product.price 
-              : Number(product.price.toString().replace(/[^0-9]/g, '')) || 35000;
+            const rawPrice = product.price || 35000;
             const discountPrice = rawPrice * 0.9;
             return (
               <div key={product.id} className="min-w-[280px] md:min-w-[340px] lg:min-w-[380px] snap-start">

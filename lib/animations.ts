@@ -2,7 +2,7 @@
 import { Variants } from 'framer-motion';
 
 // Standardized easing curve for luxury smooth feel (similar to Apple/Gentle Monster)
-export const LUXURY_EASE = [0.16, 1, 0.3, 1]; // Custom cubic-bezier
+export const LUXURY_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]; // Custom cubic-bezier
 export const SPRING_TRANSITION = { type: 'spring', stiffness: 100, damping: 20 };
 
 export const fadeUp: Variants = {

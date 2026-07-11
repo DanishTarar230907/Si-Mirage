@@ -32,25 +32,47 @@ export interface ProductReview {
 export interface Product {
   id: string;
   name: string;
-  sku: string;
+  sku?: string;
   category: string;
+  brand?: string;
+  frame_type?: string;
+  tags?: string[];
+  status?: 'active' | 'draft' | 'hidden';
   price: number;
+  discount_price?: number;
   discountPrice?: number;
   discount_percentage?: number;
-  image: string;
+  image_url?: string;
+  hover_image_url?: string;
+  image?: string;
   hoverImage?: string;
-  isNew: boolean;
-  stock: number;
-  description: string;
+  primaryImage?: string;
+  badge?: string;
+  is_new?: boolean;
+  isNew?: boolean;
+  is_featured?: boolean;
+  is_best_seller?: boolean;
+  is_new_arrival?: boolean;
+  stock_quantity?: number;
+  stock?: number;
+  description?: string;
   short_description?: string;
   long_description?: string;
-  specifications?: any;
-  features?: any;
-  is_featured?: boolean;
-  variants?: ProductVariant[];
-  images?: ProductImage[];
-  reviews?: ProductReview[];
+  specifications?: Record<string, string> | any;
+  features?: string[] | any;
+  seo_title?: string;
+  seo_description?: string;
+  rating_avg?: number;
+  review_count?: number;
+  collection_id?: string;
+  created_at?: string;
+  updated_at?: string;
+  // Relational (from joined queries)
+  product_variants?: ProductVariant[];
+  product_images?: ProductImage[];
+  product_reviews?: ProductReview[];
 }
+
 
 export interface HeroSlide {
   id: string | number;

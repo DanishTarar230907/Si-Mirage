@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight, Bell, Settings, LogOut } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight, Bell, Settings, LogOut, ArrowLeft } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCustomerAuth } from '@/components/auth/CustomerAuthProvider';
 import { useCartStore } from '@/store/useCartStore';
 import AnnouncementBar from './AnnouncementBar';
@@ -140,8 +140,10 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useCustomerAuth();
   const cartItemsCount = useCartStore((state) => state.getTotalItems());
+  const openCart = useCartStore((state) => state.openCart);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -152,6 +154,7 @@ export default function Navbar() {
   }, []);
 
   const isAdminRoute = pathname === '/admin' || pathname.startsWith('/admin');
+  const isHome = pathname === '/' || pathname === '/admin';
 
   const leftLinks = isAdminRoute
     ? [
@@ -176,12 +179,23 @@ export default function Navbar() {
       <header className={`border-b py-5 transition-all duration-500 ease-in-out ${isScrolled ? 'bg-white/90 backdrop-blur-xl shadow-sm border-black/5' : 'bg-transparent border-transparent'}`}>
         <div className="container mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 xl:px-16">
           <div className="flex items-center justify-start">
-            <button
-              className="z-50 -ml-2 p-2 xl:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6 text-foreground" /> : <Menu className="h-6 w-6 text-foreground" />}
-            </button>
+            <div className="flex items-center gap-4">
+              {!isHome && (
+                <button
+                  onClick={() => router.back()}
+                  className="group flex items-center gap-2 text-foreground transition-transform duration-300 hover:text-primary"
+                  aria-label="Go back"
+                >
+                  <ArrowLeft className="h-5 w-5 stroke-[1.5] group-hover:-translate-x-1 transition-transform" />
+                </button>
+              )}
+              <button
+                className="z-50 -ml-2 p-2 xl:hidden"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6 text-foreground" /> : <Menu className="h-6 w-6 text-foreground" />}
+              </button>
+            </div>
 
             <nav className="hidden items-center gap-5 pr-4 xl:flex xl:gap-8">
               {leftLinks.map((link) => {
@@ -280,11 +294,15 @@ export default function Navbar() {
             <Link href={isAdminRoute ? "/admin/orders" : (user ? "/account" : "/login")} className="hidden text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary md:block">
               <User className="h-5 w-5 stroke-[1.5]" />
             </Link>
-            <Link href={isAdminRoute ? "/admin/orders" : "/cart"} className="group relative flex items-center gap-2 text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary">
+            <button
+              onClick={isAdminRoute ? undefined : openCart}
+              className="group relative flex items-center gap-2 text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary"
+              aria-label="Open shopping cart"
+            >
               <ShoppingBag className="h-5 w-5 stroke-[1.5]" />
               <span className="mt-0.5 text-xs font-bold tracking-[0.1em]">({cartItemsCount})</span>
               <span className="absolute -bottom-1 left-0 h-[1px] w-full origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
-            </Link>
+            </button>
           </div>
         </div>
 

@@ -19,7 +19,7 @@ export default function ProductDetailClient({ product }: { product: any }) {
   const [reviewForm, setReviewForm] = useState({ name: '', rating: 5, title: '', comment: '' });
   const [reviewStatus, setReviewStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const allImages = [];
+  const allImages: string[] = [];
   if (product.image_url) allImages.push(product.image_url);
   if (product.hover_image_url) allImages.push(product.hover_image_url);
   if (product.images && Array.isArray(product.images)) {

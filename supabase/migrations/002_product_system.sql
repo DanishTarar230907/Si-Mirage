@@ -67,11 +67,21 @@ ALTER TABLE product_variants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE product_reviews ENABLE ROW LEVEL SECURITY;
 
 -- PUBLIC READ POLICIES
+DROP POLICY IF EXISTS "Public read product_images" ON product_images;
 CREATE POLICY "Public read product_images" ON product_images FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public read product_variants" ON product_variants;
 CREATE POLICY "Public read product_variants" ON product_variants FOR SELECT USING (is_active = true);
+
+DROP POLICY IF EXISTS "Public read product_reviews" ON product_reviews;
 CREATE POLICY "Public read product_reviews" ON product_reviews FOR SELECT USING (status = 'approved');
 
 -- ADMIN WRITE POLICIES
+DROP POLICY IF EXISTS "Admin write product_images" ON product_images;
 CREATE POLICY "Admin write product_images" ON product_images FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin write product_variants" ON product_variants;
 CREATE POLICY "Admin write product_variants" ON product_variants FOR ALL USING (true) WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admin write product_reviews" ON product_reviews;
 CREATE POLICY "Admin write product_reviews" ON product_reviews FOR ALL USING (true) WITH CHECK (true);

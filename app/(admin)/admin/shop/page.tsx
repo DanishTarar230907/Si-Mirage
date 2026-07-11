@@ -113,8 +113,11 @@ function AdminShopPageContent() {
                 <PremiumProductCard
                   product={{
                     ...product,
-                    primaryImage: product.primaryImage || product.image,
-                    hoverImage: product.hoverImage || product.image
+                    id: String(product.id),
+                    price: typeof product.price === 'number' ? `PKR ${product.price.toLocaleString()}` : String(product.price || ''),
+                    primaryImage: product.primaryImage || product.image || '',
+                    hoverImage: product.hoverImage || product.image || '',
+                    badge: (product.badge || null) as any,
                   }}
                   index={index}
                 />
@@ -124,11 +127,11 @@ function AdminShopPageContent() {
                     <button
                       onClick={() => {
                         const newName = prompt('Enter Product Name:', product.name);
-                        const newPrice = prompt('Enter Product Price (e.g. PKR 45,000):', product.price);
+                        const newPrice = prompt('Enter Product Price (e.g. 45000):', String(product.price));
                         if (newName && newPrice) {
                           const idx = cmsData.shopProducts.findIndex(p => p.id === product.id);
                           const arr = [...cmsData.shopProducts];
-                          arr[idx] = { ...product, name: newName, price: newPrice };
+                          arr[idx] = { ...product, name: newName, price: Number(newPrice.replace(/[^0-9.]/g, '')) || product.price };
                           updateCmsData('shopProducts', arr);
                         }
                       }}

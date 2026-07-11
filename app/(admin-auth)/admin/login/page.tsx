@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -54,9 +56,13 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-[#0d0d0d] flex items-center justify-center px-6 relative overflow-hidden font-sans text-[#f7f4ee]">
       {/* Editorial aesthetic background elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#1a150e]/30 via-[#0d0d0d] to-[#0d0d0d] pointer-events-none" />
-      <div className="absolute top-10 left-10 text-[10px] tracking-[0.4em] text-[#C5A059]/20 uppercase pointer-events-none font-serif">
-        Si Mirage Studio / Atelier Manager
-      </div>
+      <Link 
+        href="/" 
+        className="absolute top-10 left-10 text-[10px] tracking-[0.4em] text-[#C5A059]/40 hover:text-[#C5A059] uppercase transition-colors flex items-center gap-2 z-20 font-serif"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Return to Storefront
+      </Link>
       <div className="absolute bottom-10 right-10 text-[10px] tracking-[0.4em] text-[#C5A059]/20 uppercase pointer-events-none font-serif">
         Established 2026
       </div>
