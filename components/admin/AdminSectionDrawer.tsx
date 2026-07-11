@@ -1,6 +1,7 @@
 'use client';
 
-import { useAdminContext, CmsDataState } from './AdminContext';
+import { useAdminContext } from './AdminContext';
+import { CmsDataState } from '@/types/cms';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Trash2, ArrowUp, ArrowDown, Upload, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';

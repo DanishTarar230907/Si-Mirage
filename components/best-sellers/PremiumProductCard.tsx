@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
+import Link from 'next/link';
 
 interface Product {
   id: string;
@@ -53,17 +54,18 @@ export default function PremiumProductCard({ product, index }: PremiumProductCar
   };
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 60, rotateX: 10 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative perspective-1000"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        handleMouseLeave();
-      }}
-    >
+    <Link href={`/product/${product.id}`} className="block">
+      <motion.article
+        initial={{ opacity: 0, y: 60, rotateX: 10 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="group relative perspective-1000 cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          handleMouseLeave();
+        }}
+      >
       <motion.div
         ref={ref}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
@@ -158,5 +160,6 @@ export default function PremiumProductCard({ product, index }: PremiumProductCar
         </motion.div>
       </motion.div>
     </motion.article>
+    </Link>
   );
 }

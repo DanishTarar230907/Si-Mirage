@@ -19,18 +19,25 @@ export const metadata: Metadata = {
   description: "Cinematic sunglasses crafted with precision and style.",
 };
 
-export default function RootLayout({
+import { fetchCmsData } from '@/lib/cms';
+import { initialCmsData } from '@/lib/initialCmsData';
+
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const serverData = await fetchCmsData(initialCmsData);
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AdminProvider>
+        <AdminProvider initialData={serverData}>
           {children}
         </AdminProvider>
       </body>

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Search, Menu, X, User, Heart, ArrowRight, Bell, Settings, LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useCustomerAuth } from '@/components/auth/CustomerAuthProvider';
+import { useCartStore } from '@/store/useCartStore';
 import AnnouncementBar from './AnnouncementBar';
 
 type NavPanelItem = {
@@ -140,6 +141,7 @@ export default function Navbar() {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const pathname = usePathname();
   const { user } = useCustomerAuth();
+  const cartItemsCount = useCartStore((state) => state.getTotalItems());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -280,7 +282,7 @@ export default function Navbar() {
             </Link>
             <Link href={isAdminRoute ? "/admin/orders" : "/cart"} className="group relative flex items-center gap-2 text-foreground transition-transform duration-300 hover:scale-105 hover:text-primary">
               <ShoppingBag className="h-5 w-5 stroke-[1.5]" />
-              <span className="mt-0.5 text-xs font-bold tracking-[0.1em]">(0)</span>
+              <span className="mt-0.5 text-xs font-bold tracking-[0.1em]">({cartItemsCount})</span>
               <span className="absolute -bottom-1 left-0 h-[1px] w-full origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
             </Link>
           </div>
