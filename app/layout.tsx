@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 import { fetchCmsData } from '@/lib/cms';
 import { initialCmsData } from '@/lib/initialCmsData';
+import SmoothScrollProvider from '@/components/layout/SmoothScrollProvider';
 
 export const revalidate = 0;
 
@@ -37,9 +38,11 @@ export default async function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AdminProvider initialData={serverData}>
-          {children}
-        </AdminProvider>
+        <SmoothScrollProvider>
+          <AdminProvider initialData={serverData}>
+            {children}
+          </AdminProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

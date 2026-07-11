@@ -173,7 +173,7 @@ export default function Navbar() {
     <div className="sticky top-0 z-[60] w-full flex flex-col shadow-sm">
       <AnnouncementBar />
 
-      <header className={`border-b border-black/5 py-5 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white'}`}>
+      <header className={`border-b py-5 transition-all duration-500 ease-in-out ${isScrolled ? 'bg-white/90 backdrop-blur-xl shadow-sm border-black/5' : 'bg-transparent border-transparent'}`}>
         <div className="container mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 xl:px-16">
           <div className="flex items-center justify-start">
             <button

@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import { fadeUp, LUXURY_EASE } from '@/lib/animations';
 import { useState, useRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
@@ -56,9 +57,10 @@ export default function PremiumProductCard({ product, index }: PremiumProductCar
   return (
     <Link href={`/product/${product.id}`} className="block">
       <motion.article
-        initial={{ opacity: 0, y: 60, rotateX: 10 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
         className="group relative perspective-1000 cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {

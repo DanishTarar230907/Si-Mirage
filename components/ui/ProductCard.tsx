@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { formatPrice } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { fadeUp } from '@/lib/animations';
 
 interface ProductCardProps {
   id: string | number;
@@ -35,8 +36,12 @@ export default function ProductCard({
   const productUrl = isAdminRoute ? `/admin/product/${id}` : `/product/${id}`;
 
   return (
-    <div 
-      className="group flex flex-col relative bg-white border border-black/5 hover:border-black/30 pb-6 transition-colors duration-300"
+    <motion.div 
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      className="group flex flex-col relative bg-white border border-black/5 hover:border-black/30 pb-6 transition-colors duration-300 shadow-sm hover:shadow-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -132,6 +137,6 @@ export default function ProductCard({
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
